@@ -1,6 +1,6 @@
 var express = require('express')
 var router = express.Router()
-var entryController = require('./controllers/EntryController')
+var entryController = require('../controllers/EntryController')
 var controllers = {
 	entry: entryController
 }
