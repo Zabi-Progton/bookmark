@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 
 var routes = require('./routes/index');
 var api = require('./routes/api');
+var scrape = require('./routes/scrape');
 
 var dbUrl = process.env.MONGODB_URI || 'mongodb://localhost/bookmark'
 mongoose.connect(dbUrl, function(err, res){
@@ -37,6 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/api', api);
+app.use('/scrape', scrape);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

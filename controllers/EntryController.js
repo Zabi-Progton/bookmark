@@ -1,4 +1,5 @@
 var Entry = require('../models/Entry')
+var Scraper = require('../utils/Scraper')
 
 module.exports = {
 
@@ -58,18 +59,44 @@ module.exports = {
 		}
 
 		entryParams['url'] = url
-
-		Entry.create(entryParams, function(err, entry){
+		var props = ['og:title', 'og:image', 'og:description']
+		Scraper.scrape(url, props, function(err, result){
 			if (err){
-				if (callback != null)
-					callback(err, null)
-
+				callback(err, null)
 				return
 			}
 
-			if (callback != null)
-				callback(null, entry)
+			var keys = Object.keys(result)
+			for (var i=0; i<keys.length; i++){
+				var key = keys[i]
+				entryParams[key] = result[key]
+			}
+
+			Entry.create(entryParams, function(err, entry){
+				if (err){
+					if (callback != null)
+						callback(err, null)
+
+					return
+				}
+
+				if (callback != null)
+					callback(null, entry)
+			})
 		})
+
+
+		// Entry.create(entryParams, function(err, entry){
+		// 	if (err){
+		// 		if (callback != null)
+		// 			callback(err, null)
+
+		// 		return
+		// 	}
+
+		// 	if (callback != null)
+		// 		callback(null, entry)
+		// })
 	},
 
 	// put: function(id, params, callback){
