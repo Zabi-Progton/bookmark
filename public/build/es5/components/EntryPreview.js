@@ -30,6 +30,7 @@ var EntryPreview = (function (Component) {
 				return React.createElement(
 					"div",
 					{ style: { background: "#f9f9f9", border: "1px solid #ddd", padding: 16, marginBottom: 12 } },
+					React.createElement("img", { style: { width: 120 }, src: this.props.entry.image }),
 					React.createElement(
 						"h3",
 						null,

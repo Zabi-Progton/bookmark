@@ -21203,6 +21203,7 @@
 				return _react2.default.createElement(
 					'div',
 					{ style: { background: '#f9f9f9', border: '1px solid #ddd', padding: 16, marginBottom: 12 } },
+					_react2.default.createElement('img', { style: { width: 120 }, src: this.props.entry.image }),
 					_react2.default.createElement(
 						'h3',
 						null,
