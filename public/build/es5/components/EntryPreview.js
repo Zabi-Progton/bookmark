@@ -27,10 +27,12 @@ var EntryPreview = (function (Component) {
 	_prototypeProperties(EntryPreview, null, {
 		render: {
 			value: function render() {
+				var imageTag = this.props.entry.image.length == 0 ? null : React.createElement("img", { style: { width: 120 }, src: this.props.entry.image });
+
 				return React.createElement(
 					"div",
 					{ style: { background: "#f9f9f9", border: "1px solid #ddd", padding: 16, marginBottom: 12 } },
-					React.createElement("img", { style: { width: 120 }, src: this.props.entry.image }),
+					imageTag,
 					React.createElement(
 						"h3",
 						null,

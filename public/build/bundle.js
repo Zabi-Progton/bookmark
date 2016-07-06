@@ -21200,10 +21200,12 @@
 		_createClass(EntryPreview, [{
 			key: 'render',
 			value: function render() {
+				var imageTag = this.props.entry.image.length == 0 ? null : _react2.default.createElement('img', { style: { width: 120 }, src: this.props.entry.image });
+	
 				return _react2.default.createElement(
 					'div',
 					{ style: { background: '#f9f9f9', border: '1px solid #ddd', padding: 16, marginBottom: 12 } },
-					_react2.default.createElement('img', { style: { width: 120 }, src: this.props.entry.image }),
+					imageTag,
 					_react2.default.createElement(
 						'h3',
 						null,
