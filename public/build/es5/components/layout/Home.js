@@ -13,24 +13,31 @@ var _react = require("react");
 var React = _interopRequire(_react);
 
 var Component = _react.Component;
-var Main = (function (Component) {
-	function Main() {
-		_classCallCheck(this, Main);
+var Link = require("react-router").Link;
+var Home = (function (Component) {
+	function Home() {
+		_classCallCheck(this, Home);
 
 		if (Component != null) {
 			Component.apply(this, arguments);
 		}
 	}
 
-	_inherits(Main, Component);
+	_inherits(Home, Component);
 
-	_prototypeProperties(Main, null, {
+	_prototypeProperties(Home, null, {
 		render: {
 			value: function render() {
 				return React.createElement(
 					"div",
 					null,
-					this.props.children
+					"This is the Home Page",
+					React.createElement("br", null),
+					React.createElement(
+						Link,
+						{ to: "/entries/123" },
+						"Entries"
+					)
 				);
 			},
 			writable: true,
@@ -38,7 +45,7 @@ var Main = (function (Component) {
 		}
 	});
 
-	return Main;
+	return Home;
 })(Component);
 
-module.exports = Main;
+module.exports = Home;

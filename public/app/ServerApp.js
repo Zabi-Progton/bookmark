@@ -8,7 +8,7 @@ class ServerApp extends Component {
 	render(){
 		return (
 			<Provider store={store}>
-				<Main />
+				<Main {...this.props} />
 			</Provider>
 
 		)

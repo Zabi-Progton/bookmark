@@ -1,24 +1,26 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import Main from './components/Main'
+import Home from './components/layout/Home'
+import Entries from './components/containers/Entries'
 import { Provider } from 'react-redux'
 import store from './stores/store'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
-class App extends Component {
-
-	render(){
-		return (
-			<Main />
-		)
-	}
-}
-
-ReactDOM.render(
+const router = (
 	<Provider store={store}>
-		<App />
-	</Provider>, 
-	document.getElementById('app')
+		<Router history={browserHistory}>
+			<Route path="/" component={Main}>
+
+				<IndexRoute component={Home}></IndexRoute>
+				<Route path="/entries/:phone" component={Entries}></Route>
+
+			</Route>
+		</Router>
+	</Provider>
 )
+
+ReactDOM.render(router, document.getElementById('app'))
 
 
 
