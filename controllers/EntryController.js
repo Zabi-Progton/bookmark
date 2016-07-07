@@ -63,12 +63,8 @@ module.exports = {
 
 		entryParams['url'] = url
 		var props = ['og:title', 'og:image', 'og:description']
-		Scraper.scrape(url, props, function(err, result){
-			if (err){
-				callback(err, null)
-				return
-			}
-
+		Scraper.scrape(url, props)
+		.then(function(result){
 			var keys = Object.keys(result)
 			for (var i=0; i<keys.length; i++){
 				var key = keys[i]
@@ -87,19 +83,37 @@ module.exports = {
 					callback(null, entry)
 			})
 		})
+		.catch(function(err){
+			callback(err, null)
+			return
+		})
 
 
-		// Entry.create(entryParams, function(err, entry){
+		// Scraper.scrape(url, props, function(err, result){
 		// 	if (err){
-		// 		if (callback != null)
-		// 			callback(err, null)
-
+		// 		callback(err, null)
 		// 		return
 		// 	}
 
-		// 	if (callback != null)
-		// 		callback(null, entry)
+		// 	var keys = Object.keys(result)
+		// 	for (var i=0; i<keys.length; i++){
+		// 		var key = keys[i]
+		// 		entryParams[key] = result[key]
+		// 	}
+
+		// 	Entry.create(entryParams, function(err, entry){
+		// 		if (err){
+		// 			if (callback != null)
+		// 				callback(err, null)
+
+		// 			return
+		// 		}
+
+		// 		if (callback != null)
+		// 			callback(null, entry)
+		// 	})
 		// })
+
 	},
 
 	// put: function(id, params, callback){
