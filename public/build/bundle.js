@@ -21102,7 +21102,7 @@
 					_react2.default.createElement('br', null),
 					_react2.default.createElement(
 						_reactRouter.Link,
-						{ to: '/entries/123' },
+						{ to: '/entries/2037227160' },
 						'Entries'
 					)
 				);
@@ -26732,7 +26732,7 @@
 					return;
 	
 				var _this = this;
-				_APIManager2.default.handleGet('/api/entry', null, function (err, response) {
+				_APIManager2.default.handleGet('/api/entry', { phone: this.props.params.phone }, function (err, response) {
 					if (err) {
 						alert(err);
 						return;

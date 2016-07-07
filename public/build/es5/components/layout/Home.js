@@ -35,7 +35,7 @@ var Home = (function (Component) {
 					React.createElement("br", null),
 					React.createElement(
 						Link,
-						{ to: "/entries/123" },
+						{ to: "/entries/2037227160" },
 						"Entries"
 					)
 				);

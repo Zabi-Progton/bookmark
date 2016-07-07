@@ -22,7 +22,7 @@ class Entries extends Component {
 
 
 		var _this = this
-		APIManager.handleGet('/api/entry', null, function(err, response){
+		APIManager.handleGet('/api/entry', {phone:this.props.params.phone}, function(err, response){
 			if (err){
 				alert(err)
 				return
