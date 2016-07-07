@@ -16,6 +16,11 @@ class Entries extends Component {
 
 	componentDidMount(){
 		console.log('Component Did Mount: '+JSON.stringify(this.props.params.phone))
+		if (this.props.entries.length > 0) // already there
+			return
+
+
+
 		var _this = this
 		APIManager.handleGet('/api/entry', null, function(err, response){
 			if (err){

@@ -2,7 +2,7 @@ var cheerio = require('cheerio')
 var superagent = require('superagent')
 
 
-module.export = {
+module.exports = {
 
 	scrape: function(url, props, callback){
 		superagent

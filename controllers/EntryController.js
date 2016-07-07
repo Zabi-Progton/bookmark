@@ -45,7 +45,10 @@ module.exports = {
 
 	post: function(params, callback){
 		var entryParams = {}
-		entryParams['phone'] = params['From']
+		var phone = params['From'] // Twilio phone number inludes +1, get rid of it
+		entryParams['phone'] = phone.replace('+1', '')
+
+
 		var body = params['Body']
 
 		var parts = body.split(' ')
