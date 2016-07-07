@@ -1,5 +1,20 @@
 var Entry = require('../models/Entry')
 var Scraper = require('../utils/Scraper')
+var Promise = require('bluebird')
+
+var createEntry = function(entryParams){
+	return new Promise(function (resolve, reject){
+		Entry.create(entryParams, function(err, entry){
+			if (err){
+				reject(err)
+				return
+			}
+
+			resolve(entry)
+		})
+	})
+}
+
 
 module.exports = {
 
@@ -70,50 +85,16 @@ module.exports = {
 				var key = keys[i]
 				entryParams[key] = result[key]
 			}
-
-			Entry.create(entryParams, function(err, entry){
-				if (err){
-					if (callback != null)
-						callback(err, null)
-
-					return
-				}
-
-				if (callback != null)
-					callback(null, entry)
-			})
+			return createEntry(entryParams)
+		})
+		.then(function(entry){
+			callback(null, entry)
+			return
 		})
 		.catch(function(err){
 			callback(err, null)
 			return
 		})
-
-
-		// Scraper.scrape(url, props, function(err, result){
-		// 	if (err){
-		// 		callback(err, null)
-		// 		return
-		// 	}
-
-		// 	var keys = Object.keys(result)
-		// 	for (var i=0; i<keys.length; i++){
-		// 		var key = keys[i]
-		// 		entryParams[key] = result[key]
-		// 	}
-
-		// 	Entry.create(entryParams, function(err, entry){
-		// 		if (err){
-		// 			if (callback != null)
-		// 				callback(err, null)
-
-		// 			return
-		// 		}
-
-		// 		if (callback != null)
-		// 			callback(null, entry)
-		// 	})
-		// })
-
 	},
 
 	// put: function(id, params, callback){
