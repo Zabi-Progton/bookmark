@@ -10,16 +10,19 @@ class Entries extends Component {
 	constructor(props, context){
 		super(props, context)
 		this.state = {
-//			entries: []
+
 		}
 	}
 
 	componentDidMount(){
-		console.log('Component Did Mount: '+JSON.stringify(this.props.params.phone))
-		if (this.props.entries.length > 0) // already there
-			return
+		console.log('Component Did Mount: '+JSON.stringify(this.props.entries))
+		// if (this.props.entries.length > 0) // already there
+		// 	return
 
-
+		var entryArray = this.props.entries[this.props.params.phone]
+		if (entryArray != null){ // already there
+ 			return
+		}
 
 		var _this = this
 		APIManager.handleGet('/api/entry', {phone:this.props.params.phone}, function(err, response){
@@ -33,9 +36,14 @@ class Entries extends Component {
 	}
 
 	render(){
-		var entryList = this.props.entries.map(function(entry, i){
-			return <EntryPreview key={entry._id} entry={entry} />
-		})
+		var entryArray = this.props.entries[this.props.params.phone]
+		var entryList = null
+		if (entryArray != null){
+			entryList = entryArray.map(function(entry, i){
+				return <EntryPreview key={entry._id} entry={entry} />
+			})
+		}
+
 
 		return (
 			<div>
@@ -49,7 +57,7 @@ class Entries extends Component {
 
 const stateToProps = function(state){
 	return {
-		entries: state.entriesReducer.entriesArray
+		entries: state.entriesReducer.entries
 	}
 
 }

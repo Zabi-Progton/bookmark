@@ -26718,18 +26718,22 @@
 	
 			var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(Entries).call(this, props, context));
 	
-			_this2.state = {
-				//			entries: []
-			};
+			_this2.state = {};
 			return _this2;
 		}
 	
 		_createClass(Entries, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				console.log('Component Did Mount: ' + JSON.stringify(this.props.params.phone));
-				if (this.props.entries.length > 0) // already there
+				console.log('Component Did Mount: ' + JSON.stringify(this.props.entries));
+				// if (this.props.entries.length > 0) // already there
+				// 	return
+	
+				var entryArray = this.props.entries[this.props.params.phone];
+				if (entryArray != null) {
+					// already there
 					return;
+				}
 	
 				var _this = this;
 				_APIManager2.default.handleGet('/api/entry', { phone: this.props.params.phone }, function (err, response) {
@@ -26744,9 +26748,13 @@
 		}, {
 			key: 'render',
 			value: function render() {
-				var entryList = this.props.entries.map(function (entry, i) {
-					return _react2.default.createElement(_EntryPreview2.default, { key: entry._id, entry: entry });
-				});
+				var entryArray = this.props.entries[this.props.params.phone];
+				var entryList = null;
+				if (entryArray != null) {
+					entryList = entryArray.map(function (entry, i) {
+						return _react2.default.createElement(_EntryPreview2.default, { key: entry._id, entry: entry });
+					});
+				}
 	
 				return _react2.default.createElement(
 					'div',
@@ -26761,7 +26769,7 @@
 	
 	var stateToProps = function stateToProps(state) {
 		return {
-			entries: state.entriesReducer.entriesArray
+			entries: state.entriesReducer.entries
 		};
 	};
 	
@@ -29411,10 +29419,22 @@
 		switch (action.type) {
 	
 			case _constants2.default.ENTRIES_RECEIVED:
-				console.log('ENTRIES_RECEIVED: ' + JSON.stringify(action.entries));
+				var entries = action.entries;
+				console.log('ENTRIES_RECEIVED: ' + JSON.stringify(entries));
 				var newState = Object.assign({}, state);
-				newState['entriesArray'] = action.entries;
+				newState['entriesArray'] = entries;
 	
+				var entriesMap = Object.assign({}, newState.entries);
+				for (var i = 0; i < entries.length; i++) {
+					var entry = entries[i];
+					var array = entriesMap[entry.phone];
+					if (array == null) array = [];
+	
+					array.push(entry);
+					entriesMap[entry.phone] = array;
+				}
+	
+				newState['entries'] = entriesMap;
 				return newState;
 	
 			default:

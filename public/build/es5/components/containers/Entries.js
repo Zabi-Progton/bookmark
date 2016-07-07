@@ -37,13 +37,17 @@ var Entries = (function (Component) {
 	_prototypeProperties(Entries, null, {
 		componentDidMount: {
 			value: function componentDidMount() {
-				console.log("Component Did Mount: " + JSON.stringify(this.props.params.phone));
-				if (this.props.entries.length > 0) {
+				console.log("Component Did Mount: " + JSON.stringify(this.props.entries));
+				// if (this.props.entries.length > 0) // already there
+				// 	return
+
+				var entryArray = this.props.entries[this.props.params.phone];
+				if (entryArray != null) {
 					// already there
 					return;
+				}
 
-
-				}var _this = this;
+				var _this = this;
 				APIManager.handleGet("/api/entry", { phone: this.props.params.phone }, function (err, response) {
 					if (err) {
 						alert(err);
@@ -58,9 +62,14 @@ var Entries = (function (Component) {
 		},
 		render: {
 			value: function render() {
-				var entryList = this.props.entries.map(function (entry, i) {
-					return React.createElement(EntryPreview, { key: entry._id, entry: entry });
-				});
+				var entryArray = this.props.entries[this.props.params.phone];
+				var entryList = null;
+				if (entryArray != null) {
+					entryList = entryArray.map(function (entry, i) {
+						return React.createElement(EntryPreview, { key: entry._id, entry: entry });
+					});
+				}
+
 
 				return React.createElement(
 					"div",
@@ -78,9 +87,8 @@ var Entries = (function (Component) {
 
 var stateToProps = function (state) {
 	return {
-		entries: state.entriesReducer.entriesArray
+		entries: state.entriesReducer.entries
 	};
 };
 
 module.exports = connect(stateToProps)(Entries);
-//			entries: []
