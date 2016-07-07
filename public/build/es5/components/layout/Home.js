@@ -44,6 +44,12 @@ var Home = (function (Component) {
 						{ to: "/entries/9178736517" },
 						"Elise Harris"
 					),
+					React.createElement("br", null),
+					React.createElement(
+						Link,
+						{ to: "/entries/6318275356" },
+						"Justin Berkowitz"
+					),
 					React.createElement("br", null)
 				);
 			},

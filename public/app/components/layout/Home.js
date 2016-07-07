@@ -9,6 +9,7 @@ class Home extends Component {
 				This is the Home Page<br />
 				<Link to="/entries/2037227160">Dan Kwon</Link><br />
 				<Link to="/entries/9178736517">Elise Harris</Link><br />
+				<Link to="/entries/6318275356">Justin Berkowitz</Link><br />
 			</div>
 		)
 	}
