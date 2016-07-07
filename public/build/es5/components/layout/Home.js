@@ -36,8 +36,15 @@ var Home = (function (Component) {
 					React.createElement(
 						Link,
 						{ to: "/entries/2037227160" },
-						"Entries"
-					)
+						"Dan Kwon"
+					),
+					React.createElement("br", null),
+					React.createElement(
+						Link,
+						{ to: "/entries/9178736517" },
+						"Elise Harris"
+					),
+					React.createElement("br", null)
 				);
 			},
 			writable: true,

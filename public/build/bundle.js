@@ -21103,8 +21103,15 @@
 					_react2.default.createElement(
 						_reactRouter.Link,
 						{ to: '/entries/2037227160' },
-						'Entries'
-					)
+						'Dan Kwon'
+					),
+					_react2.default.createElement('br', null),
+					_react2.default.createElement(
+						_reactRouter.Link,
+						{ to: '/entries/9178736517' },
+						'Elise Harris'
+					),
+					_react2.default.createElement('br', null)
 				);
 			}
 		}]);

@@ -7,7 +7,8 @@ class Home extends Component {
 		return (
 			<div>
 				This is the Home Page<br />
-				<Link to="/entries/2037227160">Entries</Link>
+				<Link to="/entries/2037227160">Dan Kwon</Link><br />
+				<Link to="/entries/9178736517">Elise Harris</Link><br />
 			</div>
 		)
 	}
