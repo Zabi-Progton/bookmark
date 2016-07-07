@@ -26738,7 +26738,7 @@
 		_createClass(Entries, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				console.log('Component Did Mount: ' + JSON.stringify(this.props.entries));
+				//		console.log('Component Did Mount: '+JSON.stringify(this.props.entries))
 				// if (this.props.entries.length > 0) // already there
 				// 	return
 	
