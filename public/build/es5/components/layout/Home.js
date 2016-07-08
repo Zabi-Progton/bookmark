@@ -18,14 +18,17 @@ var Component = _react.Component;
 var Link = require("react-router").Link;
 var APIManager = _interopRequire(require("../../utils/APIManager"));
 
+var store = _interopRequire(require("../../stores/store"));
+
+var actions = _interopRequire(require("../../actions/actions"));
+
+var connect = require("react-redux").connect;
 var Home = (function (Component) {
 	function Home(props, context) {
 		_classCallCheck(this, Home);
 
 		_get(Object.getPrototypeOf(Home.prototype), "constructor", this).call(this, props, context);
-		this.state = {
-			profiles: []
-		};
+		this.state = {};
 	}
 
 	_inherits(Home, Component);
@@ -41,10 +44,12 @@ var Home = (function (Component) {
 						return;
 					}
 
-					console.log(JSON.stringify(response));
-					_this.setState({
-						profiles: response.results
-					});
+					// console.log(JSON.stringify(response))
+					// _this.setState({
+					// 	profiles: response.results
+					// })
+
+					store.dispatch(actions.profilesReceived(response.results));
 				});
 			},
 			writable: true,
@@ -52,7 +57,7 @@ var Home = (function (Component) {
 		},
 		render: {
 			value: function render() {
-				var links = this.state.profiles.map(function (profile, i) {
+				var links = this.props.profiles.map(function (profile, i) {
 					return React.createElement(
 						"div",
 						{ key: profile._id },
@@ -79,5 +84,11 @@ var Home = (function (Component) {
 	return Home;
 })(Component);
 
-module.exports = Home;
-//			store.dispatch(actions.entriesReceived(response.results))
+var stateToProps = function (state) {
+	return {
+		profiles: state.profilesReducer.profilesArray
+
+	};
+};
+
+module.exports = connect(stateToProps)(Home);

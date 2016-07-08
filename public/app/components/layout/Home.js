@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import APIManager from '../../utils/APIManager'
+import store from '../../stores/store'
+import actions from '../../actions/actions'
+import { connect } from 'react-redux'
+
 
 class Home extends Component {
 
 	constructor(props, context){
 		super(props, context)
 		this.state = {
-			profiles: []
+			
 		}
 	}
 
@@ -20,18 +24,17 @@ class Home extends Component {
 				return
 			}
 
-			console.log(JSON.stringify(response))
-			_this.setState({
-				profiles: response.results
-			})
+			// console.log(JSON.stringify(response))
+			// _this.setState({
+			// 	profiles: response.results
+			// })
 
-//			store.dispatch(actions.entriesReceived(response.results))
+			store.dispatch(actions.profilesReceived(response.results))
 		})
-
 	}
 
 	render(){
-		var links = this.state.profiles.map(function(profile, i){
+		var links = this.props.profiles.map(function(profile, i){
 			return (
 				<div key={profile._id}>
 					<Link to={'/entries/'+profile.phone}>{profile.phone}</Link>
@@ -48,4 +51,11 @@ class Home extends Component {
 	}
 }
 
-export default Home
+const stateToProps = function(state){
+	return {
+		profiles: state.profilesReducer.profilesArray
+
+	}
+}
+
+export default connect(stateToProps)(Home)

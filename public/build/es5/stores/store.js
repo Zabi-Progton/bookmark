@@ -11,9 +11,12 @@ var thunk = _interopRequire(require("redux-thunk"));
 
 var entriesReducer = _interopRequire(require("../reducers/entriesReducer"));
 
+var profilesReducer = _interopRequire(require("../reducers/profilesReducer"));
+
 // Combine Reducers
 var reducers = combineReducers({
-    entriesReducer: entriesReducer
+    entriesReducer: entriesReducer,
+    profilesReducer: profilesReducer
 });
 
 // Create Store

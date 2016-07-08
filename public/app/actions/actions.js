@@ -8,6 +8,15 @@ export default {
 			type: constants.ENTRIES_RECEIVED,
 			entries: entries
 		}
-	}
+	},
+
+
+	profilesReceived: function(profiles){
+//		console.log('entriesReceived: '+JSON.stringify(entries))
+		return {
+			type: constants.PROFILES_RECEIVED,
+			profiles: profiles
+		}
+	}	
 
 }
