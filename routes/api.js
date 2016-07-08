@@ -1,8 +1,10 @@
 var express = require('express')
 var router = express.Router()
 var entryController = require('../controllers/EntryController')
+var profileController = require('../controllers/ProfileController')
 var controllers = {
-	entry: entryController
+	entry: entryController,
+	profile: profileController
 }
 
 router.get('/:resource', function(req, res, next) {

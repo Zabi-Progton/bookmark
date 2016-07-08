@@ -1,4 +1,5 @@
 var Entry = require('../models/Entry')
+var Profile = require('../models/Profile')
 var Scraper = require('../utils/Scraper')
 var Promise = require('bluebird')
 
@@ -88,7 +89,31 @@ module.exports = {
 			return createEntry(entryParams)
 		})
 		.then(function(entry){
-			callback(null, entry)
+
+//			callback(null, entry)
+			// check if profile with phone # exists
+			Profile.find({phone:entry.phone}, function(err, profiles){
+				if (err){
+					callback(err, null)
+					return
+				}
+				if (profiles.length > 0){ // registered user
+					callback(null, entry)
+					return
+				}
+
+				// doesn't exist, create
+				Profile.create({phone:entry.phone}, function(err, profile){
+					if (err){
+						callback(err, null)
+						return
+					}
+
+					callback(null, entry)
+				})
+
+				return
+			})
 			return
 		})
 		.catch(function(err){
