@@ -55,7 +55,7 @@ var Home = (function (Component) {
 				var links = this.state.profiles.map(function (profile, i) {
 					return React.createElement(
 						"div",
-						{ key: i },
+						{ key: profile._id },
 						React.createElement(
 							Link,
 							{ to: "/entries/" + profile.phone },
