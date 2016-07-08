@@ -33,8 +33,8 @@ class Home extends Component {
 	render(){
 		var links = this.state.profiles.map(function(profile, i){
 			return (
-				<div>
-					<Link key={profile.id} to={'/entries/'+profile.phone}>{profile.phone}</Link>
+				<div key={profile.id}>
+					<Link to={'/entries/'+profile.phone}>{profile.phone}</Link>
 				</div>
 			)
 
