@@ -37,7 +37,9 @@ var Home = (function (Component) {
 		componentDidMount: {
 			value: function componentDidMount() {
 				console.log("componentDidMount: ");
-				var _this = this;
+				if (this.props.profiles.length > 0) {
+					return;
+				}var _this = this;
 				APIManager.handleGet("/api/profile", null, function (err, response) {
 					if (err) {
 						alert(err);

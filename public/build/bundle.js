@@ -21113,6 +21113,8 @@
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				console.log('componentDidMount: ');
+				if (this.props.profiles.length > 0) return;
+	
 				var _this = this;
 				_APIManager2.default.handleGet('/api/profile', null, function (err, response) {
 					if (err) {

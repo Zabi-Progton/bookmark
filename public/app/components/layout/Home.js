@@ -11,12 +11,15 @@ class Home extends Component {
 	constructor(props, context){
 		super(props, context)
 		this.state = {
-			
+
 		}
 	}
 
 	componentDidMount(){
 		console.log('componentDidMount: ')
+		if (this.props.profiles.length > 0)
+			return
+		
 		var _this = this
 		APIManager.handleGet('/api/profile', null, function(err, response){
 			if (err){
