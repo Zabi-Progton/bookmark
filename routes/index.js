@@ -11,15 +11,45 @@ var Main = require('../public/build/es5/components/Main')
 var Home = require('../public/build/es5/components/layout/Home')
 var Entries = require('../public/build/es5/components/containers/Entries')
 
-var routes = {
-	path: '/',
-	component: ServerApp,
-	indexRoute: {
-		component: Home
-	}
-}
-
 router.get('/', function(req, res, next) {
+	var routes = {
+		path: '/',
+		component: ServerApp,
+		indexRoute: {
+			component: Home
+		}
+	}
+
+	ReactRouter.match({ routes, location: req.url }, function(error, redirectLocation, renderProps){
+		if (error){
+			console.log('ReactRouter - ERROR: '+error)
+			return
+		}
+		if (redirectLocation){
+			console.log('ReactRouter - redirectLocation: '+redirectLocation)
+			return
+		}
+
+		console.log('ReactRouter - renderProps: '+JSON.stringify(renderProps))
+		var html = ReactDOMServer.renderToString(React.createElement(ReactRouter.RouterContext, renderProps))
+	    res.render('index', {react: html})
+	})
+})
+
+router.get('/:page/:slug', function(req, res, next) {
+	if (req.params.page == 'api'){
+		next()
+		return
+	}
+
+	var routes = {
+		path: '/:page/:slug',
+		component: ServerApp,
+		indexRoute: {
+			component: Entries
+		}
+	}
+	
 	ReactRouter.match({ routes, location: req.url }, function(error, redirectLocation, renderProps){
 		if (error){
 			console.log('ReactRouter - ERROR: '+error)

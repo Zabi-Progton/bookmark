@@ -47,6 +47,7 @@ class Entries extends Component {
 
 		return (
 			<div>
+				<h2>Entries</h2>
 
 				{entryList}
 
