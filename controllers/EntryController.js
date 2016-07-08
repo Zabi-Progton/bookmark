@@ -90,7 +90,6 @@ module.exports = {
 		})
 		.then(function(entry){
 
-//			callback(null, entry)
 			// check if profile with phone # exists
 			Profile.find({phone:entry.phone}, function(err, profiles){
 				if (err){
