@@ -21126,7 +21126,7 @@
 				var links = this.state.profiles.map(function (profile, i) {
 					return _react2.default.createElement(
 						'div',
-						{ key: profile.id },
+						{ key: i },
 						_react2.default.createElement(
 							_reactRouter.Link,
 							{ to: '/entries/' + profile.phone },
