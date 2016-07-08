@@ -21075,6 +21075,10 @@
 	
 	var _reactRouter = __webpack_require__(172);
 	
+	var _APIManager = __webpack_require__(236);
+	
+	var _APIManager2 = _interopRequireDefault(_APIManager);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21086,38 +21090,56 @@
 	var Home = function (_Component) {
 		_inherits(Home, _Component);
 	
-		function Home() {
+		function Home(props, context) {
 			_classCallCheck(this, Home);
 	
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(Home).apply(this, arguments));
+			var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(Home).call(this, props, context));
+	
+			_this2.state = {
+				profiles: []
+			};
+			return _this2;
 		}
 	
 		_createClass(Home, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				console.log('componentDidMount: ');
+				var _this = this;
+				_APIManager2.default.handleGet('/api/profile', null, function (err, response) {
+					if (err) {
+						alert(err);
+						return;
+					}
+	
+					console.log(JSON.stringify(response));
+					_this.setState({
+						profiles: response.results
+					});
+	
+					//			store.dispatch(actions.entriesReceived(response.results))
+				});
+			}
+		}, {
 			key: 'render',
 			value: function render() {
+				var links = this.state.profiles.map(function (profile, i) {
+					return _react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(
+							_reactRouter.Link,
+							{ to: '/entries/' + profile.phone },
+							profile.phone
+						)
+					);
+				});
 				return _react2.default.createElement(
 					'div',
 					null,
 					'This is the Home Page',
 					_react2.default.createElement('br', null),
-					_react2.default.createElement(
-						_reactRouter.Link,
-						{ to: '/entries/2037227160' },
-						'Dan Kwon'
-					),
-					_react2.default.createElement('br', null),
-					_react2.default.createElement(
-						_reactRouter.Link,
-						{ to: '/entries/9178736517' },
-						'Elise Harris'
-					),
-					_react2.default.createElement('br', null),
-					_react2.default.createElement(
-						_reactRouter.Link,
-						{ to: '/entries/6318275356' },
-						'Justin Berkowitz'
-					),
-					_react2.default.createElement('br', null)
+					links
 				);
 			}
 		}]);
