@@ -34,7 +34,7 @@ class Home extends Component {
 		var links = this.state.profiles.map(function(profile, i){
 			return (
 				<div>
-					<Link to={'/entries/'+profile.phone}>{profile.phone}</Link>
+					<Link key={profile.id} to={'/entries/'+profile.phone}>{profile.phone}</Link>
 				</div>
 			)
 

@@ -21129,7 +21129,7 @@
 						null,
 						_react2.default.createElement(
 							_reactRouter.Link,
-							{ to: '/entries/' + profile.phone },
+							{ key: profile.id, to: '/entries/' + profile.phone },
 							profile.phone
 						)
 					);
