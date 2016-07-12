@@ -30515,7 +30515,7 @@
 						return;
 					}
 	
-					_store2.default.dispatch(_actions2.default.entriesReceived(response.results));
+					_store2.default.currentStore().dispatch(_actions2.default.entriesReceived(response.results));
 				});
 			}
 		}, {

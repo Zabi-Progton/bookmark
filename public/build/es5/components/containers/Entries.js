@@ -54,7 +54,7 @@ var Entries = (function (Component) {
 						return;
 					}
 
-					store.dispatch(actions.entriesReceived(response.results));
+					store.currentStore().dispatch(actions.entriesReceived(response.results));
 				});
 			},
 			writable: true,

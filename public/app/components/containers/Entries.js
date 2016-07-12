@@ -31,7 +31,7 @@ class Entries extends Component {
 				return
 			}
 
-			store.dispatch(actions.entriesReceived(response.results))
+			store.currentStore().dispatch(actions.entriesReceived(response.results))
 		})
 	}
 
