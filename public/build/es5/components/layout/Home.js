@@ -51,7 +51,7 @@ var Home = (function (Component) {
 					// 	profiles: response.results
 					// })
 
-					store.dispatch(actions.profilesReceived(response.results));
+					store.currentStore().dispatch(actions.profilesReceived(response.results));
 				});
 			},
 			writable: true,

@@ -16,7 +16,7 @@ var Component = _react.Component;
 var Main = _interopRequire(require("./components/Main"));
 
 var Provider = require("react-redux").Provider;
-var store = _interopRequire(require("./stores/store"));
+//import store from './stores/store'
 
 var ServerApp = (function (Component) {
 	function ServerApp() {
@@ -34,7 +34,7 @@ var ServerApp = (function (Component) {
 			value: function render() {
 				return React.createElement(
 					Provider,
-					{ store: store },
+					{ store: this.props.route.initial },
 					React.createElement(Main, this.props)
 				);
 			},

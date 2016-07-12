@@ -7,8 +7,10 @@ import { Provider } from 'react-redux'
 import store from './stores/store'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
+const initialState = window.__PRELOADED_STATE__
+
 const router = (
-	<Provider store={store}>
+	<Provider store={store.configureStore(initialState)}>
 		<Router history={browserHistory}>
 			<Route path="/" component={Main}>
 

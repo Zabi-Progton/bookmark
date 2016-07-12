@@ -3,17 +3,48 @@ import thunk from 'redux-thunk'
 import entriesReducer from '../reducers/entriesReducer'
 import profilesReducer from '../reducers/profilesReducer'
 
-// Combine Reducers
-var reducers = combineReducers({
-    entriesReducer: entriesReducer,
-    profilesReducer: profilesReducer
-})
+// // Combine Reducers
+// var reducers = combineReducers({
+//     entriesReducer: entriesReducer,
+//     profilesReducer: profilesReducer
+// })
 
-// Create Store
-var store = createStore(
-    reducers,
-    applyMiddleware(thunk) // Add middleware to createStore
-)
+// // Create Store
+// var store = createStore(
+//     reducers,
+//     applyMiddleware(thunk) // Add middleware to createStore
+// )
 
 
-export default store
+// export default store
+
+var currentStore
+export default {
+
+	configureStore: function(initialState){
+		// Combine Reducers
+		var reducers = combineReducers({
+		    entriesReducer: entriesReducer,
+		    profilesReducer: profilesReducer
+		})
+
+		// Create Store
+		var store = createStore(
+		    reducers,
+		    initialState,
+		    applyMiddleware(thunk) // Add middleware to createStore
+		)
+
+		currentStore = store
+		return currentStore
+	},
+
+	currentStore: function(){
+		return currentStore
+	}
+
+
+}
+
+
+

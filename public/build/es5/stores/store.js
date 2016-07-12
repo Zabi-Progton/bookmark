@@ -13,15 +13,42 @@ var entriesReducer = _interopRequire(require("../reducers/entriesReducer"));
 
 var profilesReducer = _interopRequire(require("../reducers/profilesReducer"));
 
-// Combine Reducers
-var reducers = combineReducers({
-    entriesReducer: entriesReducer,
-    profilesReducer: profilesReducer
-});
+// // Combine Reducers
+// var reducers = combineReducers({
+//     entriesReducer: entriesReducer,
+//     profilesReducer: profilesReducer
+// })
 
-// Create Store
-var store = createStore(reducers, applyMiddleware(thunk) // Add middleware to createStore
-);
+// // Create Store
+// var store = createStore(
+//     reducers,
+//     applyMiddleware(thunk) // Add middleware to createStore
+// )
 
 
-module.exports = store;
+// export default store
+
+var currentStore;
+module.exports = {
+
+	configureStore: function (initialState) {
+		// Combine Reducers
+		var reducers = combineReducers({
+			entriesReducer: entriesReducer,
+			profilesReducer: profilesReducer
+		});
+
+		// Create Store
+		var store = createStore(reducers, initialState, applyMiddleware(thunk) // Add middleware to createStore
+		);
+
+		currentStore = store;
+		return currentStore;
+	},
+
+	currentStore: function () {
+		return currentStore;
+	}
+
+
+};
