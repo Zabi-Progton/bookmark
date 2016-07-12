@@ -66,8 +66,20 @@ router.get('/:page/:slug', function(req, res, next) {
 			return
 		}
 
+		var entriesMap = {}
+		for (var i=0; i<results.length; i++){
+			var entry = results[i]
+			var array = entriesMap[entry.phone]
+			if (array == null)
+				array = []
+
+			array.push(entry)
+			entriesMap[entry.phone] = array
+		}
+
+
 		var entriesReducer = {
-			entries: {},
+			entries: entriesMap,
 			entriesArray: results
 		}
 
