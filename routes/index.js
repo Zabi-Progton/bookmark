@@ -107,13 +107,7 @@ router.get('/:page/:slug', function(req, res, next) {
 			var html = ReactDOMServer.renderToString(React.createElement(ReactRouter.RouterContext, renderProps))
 		    res.render('index', {react: html, preloadedState:JSON.stringify(initialStore.getState())})
 		})
-
-
 	})
-
-
-
-
 })
 
 
