@@ -61,7 +61,7 @@ router.get('/:page/:slug', function(req, res, next) {
 		return
 	}
 
-	entryController.get({phone:req.params.slug}, function(err, results){
+	entryController.get({phone:req.params.slug}, false, function(err, results){
 		if (err){
 			return
 		}
