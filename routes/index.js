@@ -1,5 +1,6 @@
-var express = require('express');
-var router = express.Router();
+var express = require('express')
+var router = express.Router()
+var Promise = require('bluebird')
 
 
 require('node-jsx').install({ extension: ".js" })
@@ -17,18 +18,41 @@ var Entries = require('../public/build/es5/components/containers/Entries')
 var profileController = require('../controllers/ProfileController')
 var entryController = require('../controllers/EntryController')
 
-router.get('/', function(req, res, next) {
-	profileController.get(null, false, function(err, results){
-		if (err){
-			return
-		}
 
+matchRoutes = function(req, routes, initialStore){
+	return new Promise(function(resolve, reject){
+		ReactRouter.match({ routes, location: req.url }, function(error, redirectLocation, renderProps){
+			if (error){
+				reject(error)
+				return
+			}
+
+			// if (redirectLocation){
+			// 	return
+			// }
+
+			resolve(renderProps)
+
+			// var html = ReactDOMServer.renderToString(React.createElement(ReactRouter.RouterContext, renderProps))
+		 //    res.render('index', {react: html, preloadedState:JSON.stringify(initialStore.getState())})
+		})
+	})
+
+
+
+}
+
+router.get('/', function(req, res, next) {
+
+	var initialStore = null
+	profileController.find(null)
+	.then(function(results){
 		var profilesReducer = {
 			profiles:{},
 			profilesArray: results
 		}
 
-		var initialStore = store.configureStore({
+		initialStore = store.configureStore({
 			profilesReducer: profilesReducer
 		})
 
@@ -41,18 +65,55 @@ router.get('/', function(req, res, next) {
 			}
 		}
 
-		ReactRouter.match({ routes, location: req.url }, function(error, redirectLocation, renderProps){
-			if (error){
-				return
-			}
-			if (redirectLocation){
-				return
-			}
-
-			var html = ReactDOMServer.renderToString(React.createElement(ReactRouter.RouterContext, renderProps))
-		    res.render('index', {react: html, preloadedState:JSON.stringify(initialStore.getState())})
-		})
+		return matchRoutes(req, routes, initialStore)
 	})
+	.then(function(renderProps){
+		var html = ReactDOMServer.renderToString(React.createElement(ReactRouter.RouterContext, renderProps))
+
+		console.log('HTML: '+html)
+	    res.render('index', {react: html, preloadedState:JSON.stringify(initialStore.getState())})
+	    return
+	})
+	.catch(function(err){
+
+	})
+
+
+	// profileController.get(null, false, function(err, results){
+	// 	if (err){
+	// 		return
+	// 	}
+
+	// 	var profilesReducer = {
+	// 		profiles:{},
+	// 		profilesArray: results
+	// 	}
+
+	// 	var initialStore = store.configureStore({
+	// 		profilesReducer: profilesReducer
+	// 	})
+
+	// 	var routes = {
+	// 		path: '/',
+	// 		component: ServerApp,
+	// 		initial: initialStore,
+	// 		indexRoute: {
+	// 			component: Home
+	// 		}
+	// 	}
+
+	// 	ReactRouter.match({ routes, location: req.url }, function(error, redirectLocation, renderProps){
+	// 		if (error){
+	// 			return
+	// 		}
+	// 		if (redirectLocation){
+	// 			return
+	// 		}
+
+	// 		var html = ReactDOMServer.renderToString(React.createElement(ReactRouter.RouterContext, renderProps))
+	// 	    res.render('index', {react: html, preloadedState:JSON.stringify(initialStore.getState())})
+	// 	})
+	// })
 })
 
 router.get('/:page/:slug', function(req, res, next) {
@@ -77,7 +138,6 @@ router.get('/:page/:slug', function(req, res, next) {
 			entriesMap[entry.phone] = array
 		}
 
-
 		var entriesReducer = {
 			entries: entriesMap,
 			entriesArray: results
@@ -96,17 +156,7 @@ router.get('/:page/:slug', function(req, res, next) {
 			}
 		}
 
-		ReactRouter.match({ routes, location: req.url }, function(error, redirectLocation, renderProps){
-			if (error){
-				return
-			}
-			if (redirectLocation){
-				return
-			}
-
-			var html = ReactDOMServer.renderToString(React.createElement(ReactRouter.RouterContext, renderProps))
-		    res.render('index', {react: html, preloadedState:JSON.stringify(initialStore.getState())})
-		})
+		return matchRoutes(req, routes, initialStore)
 	})
 })
 
