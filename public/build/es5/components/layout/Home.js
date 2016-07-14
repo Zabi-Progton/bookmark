@@ -23,6 +23,8 @@ var store = _interopRequire(require("../../stores/store"));
 var actions = _interopRequire(require("../../actions/actions"));
 
 var connect = require("react-redux").connect;
+var Header = _interopRequire(require("../../components/Header"));
+
 var Home = (function (Component) {
 	function Home(props, context) {
 		_classCallCheck(this, Home);
@@ -73,6 +75,7 @@ var Home = (function (Component) {
 				return React.createElement(
 					"div",
 					null,
+					React.createElement(Header, null),
 					"This is the Home Page",
 					React.createElement("br", null),
 					links
