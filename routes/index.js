@@ -116,6 +116,13 @@ router.get('/', function(req, res, next) {
 	// })
 })
 
+router.get('/:page', function(req, res, next) {
+
+	var page = req.params.page
+	res.render(page, {})
+
+})
+
 router.get('/:page/:slug', function(req, res, next) {
 	if (req.params.page == 'api'){
 		next()
