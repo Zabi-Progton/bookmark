@@ -76,9 +76,66 @@ var Home = (function (Component) {
 					"div",
 					null,
 					React.createElement(Header, null),
-					"This is the Home Page",
-					React.createElement("br", null),
-					links
+					React.createElement(
+						"section",
+						{ id: "content" },
+						React.createElement(
+							"div",
+							{ className: "content-wrap" },
+							React.createElement(
+								"div",
+								{ className: "container clearfix" },
+								React.createElement(
+									"div",
+									{ className: "col_one_third nobottommargin" },
+									React.createElement(
+										"div",
+										{ className: "well well-lg nobottommargin" },
+										React.createElement(
+											"h3",
+											null,
+											"Sign Up"
+										),
+										React.createElement(
+											"div",
+											{ className: "col_full" },
+											React.createElement("input", { type: "text", id: "login-form-username", name: "login-form-username", value: "", placeholder: "Username", className: "form-control" })
+										),
+										React.createElement(
+											"div",
+											{ className: "col_full" },
+											React.createElement("input", { type: "text", id: "login-form-phone", name: "login-form-phone", value: "", placeholder: "Phone", className: "form-control" })
+										),
+										React.createElement(
+											"div",
+											{ className: "col_full" },
+											React.createElement("input", { type: "password", id: "login-form-password", name: "login-form-password", value: "", placeholder: "password", className: "form-control" })
+										),
+										React.createElement(
+											"button",
+											null,
+											"JOIN"
+										)
+									)
+								),
+								React.createElement(
+									"div",
+									{ className: "col_two_third col_last nobottommargin" },
+									React.createElement(
+										"h3",
+										null,
+										"This is the Home Page"
+									),
+									links,
+									React.createElement(
+										"p",
+										null,
+										"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde, vel odio non dicta provident sint ex autem mollitia dolorem illum repellat ipsum aliquid illo similique sapiente fugiat minus ratione."
+									)
+								)
+							)
+						)
+					)
 				);
 			},
 			writable: true,

@@ -46,13 +46,13 @@ var Header = (function (Component) {
 								{ id: "logo" },
 								React.createElement(
 									"a",
-									{ href: "index.html", className: "standard-logo", "data-dark-logo": "images/logo-dark.png" },
-									React.createElement("img", { src: "images/logo.png", alt: "Canvas Logo" })
+									{ href: "/", className: "standard-logo", "data-dark-logo": "/images/logo-dark.png" },
+									React.createElement("img", { src: "/images/logo.png", alt: "Canvas Logo" })
 								),
 								React.createElement(
 									"a",
-									{ href: "index.html", className: "retina-logo", "data-dark-logo": "images/logo-dark@2x.png" },
-									React.createElement("img", { src: "images/logo@2x.png", alt: "Canvas Logo" })
+									{ href: "/", className: "retina-logo", "data-dark-logo": "/images/logo-dark@2x.png" },
+									React.createElement("img", { src: "/images/logo@2x.png", alt: "Canvas Logo" })
 								)
 							),
 							React.createElement(
@@ -66,7 +66,7 @@ var Header = (function (Component) {
 										null,
 										React.createElement(
 											"a",
-											{ href: "index.html" },
+											{ href: "/" },
 											React.createElement(
 												"div",
 												null,
@@ -79,7 +79,7 @@ var Header = (function (Component) {
 										null,
 										React.createElement(
 											"a",
-											{ href: "index.html" },
+											{ href: "/" },
 											React.createElement(
 												"div",
 												null,

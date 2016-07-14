@@ -21271,9 +21271,66 @@
 					'div',
 					null,
 					_react2.default.createElement(_Header2.default, null),
-					'This is the Home Page',
-					_react2.default.createElement('br', null),
-					links
+					_react2.default.createElement(
+						'section',
+						{ id: 'content' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'content-wrap' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'container clearfix' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'col_one_third nobottommargin' },
+									_react2.default.createElement(
+										'div',
+										{ className: 'well well-lg nobottommargin' },
+										_react2.default.createElement(
+											'h3',
+											null,
+											'Sign Up'
+										),
+										_react2.default.createElement(
+											'div',
+											{ className: 'col_full' },
+											_react2.default.createElement('input', { type: 'text', id: 'login-form-username', name: 'login-form-username', value: '', placeholder: 'Username', className: 'form-control' })
+										),
+										_react2.default.createElement(
+											'div',
+											{ className: 'col_full' },
+											_react2.default.createElement('input', { type: 'text', id: 'login-form-phone', name: 'login-form-phone', value: '', placeholder: 'Phone', className: 'form-control' })
+										),
+										_react2.default.createElement(
+											'div',
+											{ className: 'col_full' },
+											_react2.default.createElement('input', { type: 'password', id: 'login-form-password', name: 'login-form-password', value: '', placeholder: 'password', className: 'form-control' })
+										),
+										_react2.default.createElement(
+											'button',
+											null,
+											'JOIN'
+										)
+									)
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'col_two_third col_last nobottommargin' },
+									_react2.default.createElement(
+										'h3',
+										null,
+										'This is the Home Page'
+									),
+									links,
+									_react2.default.createElement(
+										'p',
+										null,
+										'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde, vel odio non dicta provident sint ex autem mollitia dolorem illum repellat ipsum aliquid illo similique sapiente fugiat minus ratione.'
+									)
+								)
+							)
+						)
+					)
 				);
 			}
 		}]);
@@ -30684,13 +30741,13 @@
 								{ id: "logo" },
 								_react2.default.createElement(
 									"a",
-									{ href: "index.html", className: "standard-logo", "data-dark-logo": "images/logo-dark.png" },
-									_react2.default.createElement("img", { src: "images/logo.png", alt: "Canvas Logo" })
+									{ href: "/", className: "standard-logo", "data-dark-logo": "/images/logo-dark.png" },
+									_react2.default.createElement("img", { src: "/images/logo.png", alt: "Canvas Logo" })
 								),
 								_react2.default.createElement(
 									"a",
-									{ href: "index.html", className: "retina-logo", "data-dark-logo": "images/logo-dark@2x.png" },
-									_react2.default.createElement("img", { src: "images/logo@2x.png", alt: "Canvas Logo" })
+									{ href: "/", className: "retina-logo", "data-dark-logo": "/images/logo-dark@2x.png" },
+									_react2.default.createElement("img", { src: "/images/logo@2x.png", alt: "Canvas Logo" })
 								)
 							),
 							_react2.default.createElement(
@@ -30704,7 +30761,7 @@
 										null,
 										_react2.default.createElement(
 											"a",
-											{ href: "index.html" },
+											{ href: "/" },
 											_react2.default.createElement(
 												"div",
 												null,
@@ -30717,7 +30774,7 @@
 										null,
 										_react2.default.createElement(
 											"a",
-											{ href: "index.html" },
+											{ href: "/" },
 											_react2.default.createElement(
 												"div",
 												null,
