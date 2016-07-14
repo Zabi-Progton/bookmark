@@ -4,6 +4,7 @@ import APIManager from '../../utils/APIManager'
 import store from '../../stores/store'
 import actions from '../../actions/actions'
 import { connect } from 'react-redux'
+import Header from '../../components/Header'
 
 class Entries extends Component {
 
@@ -47,6 +48,7 @@ class Entries extends Component {
 
 		return (
 			<div>
+				<Header />
 				<h2>Entries</h2>
 
 				{entryList}

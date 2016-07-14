@@ -24,6 +24,8 @@ var store = _interopRequire(require("../../stores/store"));
 var actions = _interopRequire(require("../../actions/actions"));
 
 var connect = require("react-redux").connect;
+var Header = _interopRequire(require("../../components/Header"));
+
 var Entries = (function (Component) {
 	function Entries(props, context) {
 		_classCallCheck(this, Entries);
@@ -74,6 +76,7 @@ var Entries = (function (Component) {
 				return React.createElement(
 					"div",
 					null,
+					React.createElement(Header, null),
 					React.createElement(
 						"h2",
 						null,
