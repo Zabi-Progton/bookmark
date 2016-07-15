@@ -21,14 +21,27 @@ var Register = (function (Component) {
 
 		_get(Object.getPrototypeOf(Register.prototype), "constructor", this).call(this, props, context);
 		this.toggleMode = this.toggleMode.bind(this);
+		this.updateVisitor = this.updateVisitor.bind(this);
 		this.state = {
-			mode: "register" // register or login
+			mode: "register", // register or login
+			visitor: {
+				username: "",
+				phone: "",
+				password: ""
+			}
 		};
 	}
 
 	_inherits(Register, Component);
 
 	_prototypeProperties(Register, null, {
+		updateVisitor: {
+			value: function updateVisitor(event) {
+				console.log(event.target.id + " = " + event.target.value);
+			},
+			writable: true,
+			configurable: true
+		},
 		toggleMode: {
 			value: function toggleMode(event) {
 				event.preventDefault();
@@ -49,7 +62,7 @@ var Register = (function (Component) {
 				var phoneField = null;
 				if (this.state.mode == "register") {
 					btnText = "Join";
-					phoneField = React.createElement("input", { type: "text", style: { marginTop: 22 }, id: "login-form-phone", name: "login-form-phone", value: "", placeholder: "Phone", className: "form-control" });
+					phoneField = React.createElement("input", { type: "text", onChange: this.updateVisitor, style: { marginTop: 22 }, id: "phone", name: "login-form-phone", placeholder: "Phone", className: "form-control" });
 				} else {
 					btnText = "Log In";
 				}
@@ -66,9 +79,9 @@ var Register = (function (Component) {
 					React.createElement(
 						"div",
 						{ className: "col_full" },
-						React.createElement("input", { type: "text", id: "login-form-username", name: "login-form-username", value: "", placeholder: "Username", className: "form-control" }),
+						React.createElement("input", { type: "text", onChange: this.updateVisitor, id: "username", name: "login-form-username", placeholder: "Username", className: "form-control" }),
 						phoneField,
-						React.createElement("input", { type: "password", style: { marginTop: 22 }, id: "login-form-password", name: "login-form-password", value: "", placeholder: "password", className: "form-control" })
+						React.createElement("input", { type: "password", onChange: this.updateVisitor, style: { marginTop: 22 }, id: "password", name: "login-form-password", placeholder: "password", className: "form-control" })
 					),
 					React.createElement(
 						"button",

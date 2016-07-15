@@ -30804,13 +30804,24 @@
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Register).call(this, props, context));
 	
 			_this.toggleMode = _this.toggleMode.bind(_this);
+			_this.updateVisitor = _this.updateVisitor.bind(_this);
 			_this.state = {
-				mode: 'register' // register or login
+				mode: 'register', // register or login
+				visitor: {
+					username: '',
+					phone: '',
+					password: ''
+				}
 			};
 			return _this;
 		}
 	
 		_createClass(Register, [{
+			key: 'updateVisitor',
+			value: function updateVisitor(event) {
+				console.log(event.target.id + ' = ' + event.target.value);
+			}
+		}, {
 			key: 'toggleMode',
 			value: function toggleMode(event) {
 				event.preventDefault();
@@ -30829,7 +30840,7 @@
 				var phoneField = null;
 				if (this.state.mode == 'register') {
 					btnText = 'Join';
-					phoneField = _react2.default.createElement('input', { type: 'text', style: { marginTop: 22 }, id: 'login-form-phone', name: 'login-form-phone', value: '', placeholder: 'Phone', className: 'form-control' });
+					phoneField = _react2.default.createElement('input', { type: 'text', onChange: this.updateVisitor, style: { marginTop: 22 }, id: 'phone', name: 'login-form-phone', placeholder: 'Phone', className: 'form-control' });
 				} else {
 					btnText = 'Log In';
 				}
@@ -30846,9 +30857,9 @@
 					_react2.default.createElement(
 						'div',
 						{ className: 'col_full' },
-						_react2.default.createElement('input', { type: 'text', id: 'login-form-username', name: 'login-form-username', value: '', placeholder: 'Username', className: 'form-control' }),
+						_react2.default.createElement('input', { type: 'text', onChange: this.updateVisitor, id: 'username', name: 'login-form-username', placeholder: 'Username', className: 'form-control' }),
 						phoneField,
-						_react2.default.createElement('input', { type: 'password', style: { marginTop: 22 }, id: 'login-form-password', name: 'login-form-password', value: '', placeholder: 'password', className: 'form-control' })
+						_react2.default.createElement('input', { type: 'password', onChange: this.updateVisitor, style: { marginTop: 22 }, id: 'password', name: 'login-form-password', placeholder: 'password', className: 'form-control' })
 					),
 					_react2.default.createElement(
 						'button',
