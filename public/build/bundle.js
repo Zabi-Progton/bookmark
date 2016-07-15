@@ -21212,6 +21212,10 @@
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
+	var _Register = __webpack_require__(278);
+	
+	var _Register2 = _interopRequireDefault(_Register);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21283,35 +21287,7 @@
 								_react2.default.createElement(
 									'div',
 									{ className: 'col_one_third nobottommargin' },
-									_react2.default.createElement(
-										'div',
-										{ className: 'well well-lg nobottommargin' },
-										_react2.default.createElement(
-											'h3',
-											null,
-											'Sign Up'
-										),
-										_react2.default.createElement(
-											'div',
-											{ className: 'col_full' },
-											_react2.default.createElement('input', { type: 'text', id: 'login-form-username', name: 'login-form-username', value: '', placeholder: 'Username', className: 'form-control' })
-										),
-										_react2.default.createElement(
-											'div',
-											{ className: 'col_full' },
-											_react2.default.createElement('input', { type: 'text', id: 'login-form-phone', name: 'login-form-phone', value: '', placeholder: 'Phone', className: 'form-control' })
-										),
-										_react2.default.createElement(
-											'div',
-											{ className: 'col_full' },
-											_react2.default.createElement('input', { type: 'password', id: 'login-form-password', name: 'login-form-password', value: '', placeholder: 'password', className: 'form-control' })
-										),
-										_react2.default.createElement(
-											'button',
-											null,
-											'JOIN'
-										)
-									)
+									_react2.default.createElement(_Register2.default, null)
 								),
 								_react2.default.createElement(
 									'div',
@@ -30794,6 +30770,102 @@
 	}(_react.Component);
 	
 	exports.default = Header;
+
+/***/ },
+/* 278 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Register = function (_Component) {
+		_inherits(Register, _Component);
+	
+		function Register(props, context) {
+			_classCallCheck(this, Register);
+	
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Register).call(this, props, context));
+	
+			_this.toggleMode = _this.toggleMode.bind(_this);
+			_this.state = {
+				mode: 'register' // register or login
+			};
+			return _this;
+		}
+	
+		_createClass(Register, [{
+			key: 'toggleMode',
+			value: function toggleMode(event) {
+				event.preventDefault();
+	
+				var currentMode = this.state.mode;
+				var nextMode = currentMode == 'register' ? 'login' : 'register';
+				console.log('Toggle Mode: ' + nextMode);
+				this.setState({
+					mode: nextMode
+				});
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var btnText = this.state.mode == 'register' ? 'Join' : 'Log In';
+				return _react2.default.createElement(
+					'div',
+					{ className: 'well well-lg nobottommargin' },
+					_react2.default.createElement(
+						'h3',
+						null,
+						this.state.mode.toUpperCase()
+					),
+					_react2.default.createElement('hr', { style: { borderTop: '1px solid #777' } }),
+					_react2.default.createElement(
+						'div',
+						{ className: 'col_full' },
+						_react2.default.createElement('input', { type: 'text', id: 'login-form-username', name: 'login-form-username', value: '', placeholder: 'Username', className: 'form-control' }),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('input', { type: 'text', id: 'login-form-phone', name: 'login-form-phone', value: '', placeholder: 'Phone', className: 'form-control' }),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('input', { type: 'password', id: 'login-form-password', name: 'login-form-password', value: '', placeholder: 'password', className: 'form-control' })
+					),
+					_react2.default.createElement(
+						'button',
+						{ className: 'button button-xlarge button-border button-rounded tright' },
+						btnText
+					),
+					_react2.default.createElement('br', null),
+					'Already a member? Login ',
+					_react2.default.createElement(
+						'a',
+						{ onClick: this.toggleMode, href: '#' },
+						'HERE'
+					),
+					'.',
+					_react2.default.createElement('br', null)
+				);
+			}
+		}]);
+	
+		return Register;
+	}(_react.Component);
+	
+	exports.default = Register;
 
 /***/ }
 /******/ ]);

@@ -5,6 +5,7 @@ import store from '../../stores/store'
 import actions from '../../actions/actions'
 import { connect } from 'react-redux'
 import Header from '../../components/Header'
+import Register from '../../components/Register'
 
 
 class Home extends Component {
@@ -55,25 +56,7 @@ class Home extends Component {
 		            <div className="content-wrap">
 		                <div className="container clearfix">
 		                    <div className="col_one_third nobottommargin">
-		                        <div className="well well-lg nobottommargin">
-		                            <h3>Sign Up</h3>
-
-		                            <div className="col_full">
-		                                <input type="text" id="login-form-username" name="login-form-username" value="" placeholder="Username" className="form-control" />
-		                            </div>
-
-		                            <div className="col_full">
-		                                <input type="text" id="login-form-phone" name="login-form-phone" value="" placeholder="Phone" className="form-control" />
-		                            </div>
-
-		                            <div className="col_full">
-		                                <input type="password" id="login-form-password" name="login-form-password" value="" placeholder="password" className="form-control" />
-		                            </div>
-
-		                            <button>JOIN</button>
-
-		                        </div>
-
+		                    	<Register />
 		                    </div>
 
 		                    <div className="col_two_third col_last nobottommargin">

@@ -25,6 +25,8 @@ var actions = _interopRequire(require("../../actions/actions"));
 var connect = require("react-redux").connect;
 var Header = _interopRequire(require("../../components/Header"));
 
+var Register = _interopRequire(require("../../components/Register"));
+
 var Home = (function (Component) {
 	function Home(props, context) {
 		_classCallCheck(this, Home);
@@ -88,35 +90,7 @@ var Home = (function (Component) {
 								React.createElement(
 									"div",
 									{ className: "col_one_third nobottommargin" },
-									React.createElement(
-										"div",
-										{ className: "well well-lg nobottommargin" },
-										React.createElement(
-											"h3",
-											null,
-											"Sign Up"
-										),
-										React.createElement(
-											"div",
-											{ className: "col_full" },
-											React.createElement("input", { type: "text", id: "login-form-username", name: "login-form-username", value: "", placeholder: "Username", className: "form-control" })
-										),
-										React.createElement(
-											"div",
-											{ className: "col_full" },
-											React.createElement("input", { type: "text", id: "login-form-phone", name: "login-form-phone", value: "", placeholder: "Phone", className: "form-control" })
-										),
-										React.createElement(
-											"div",
-											{ className: "col_full" },
-											React.createElement("input", { type: "password", id: "login-form-password", name: "login-form-password", value: "", placeholder: "password", className: "form-control" })
-										),
-										React.createElement(
-											"button",
-											null,
-											"JOIN"
-										)
-									)
+									React.createElement(Register, null)
 								),
 								React.createElement(
 									"div",
