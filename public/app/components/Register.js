@@ -23,15 +23,24 @@ class Register extends Component {
 
 
 	render(){
-		var btnText = (this.state.mode == 'register') ? 'Join' : 'Log In'
+		var btnText = null
+		var phoneField = null
+		if (this.state.mode == 'register'){
+			btnText = 'Join'
+			phoneField = <input type="text" style={{marginTop:22}} id="login-form-phone" name="login-form-phone" value="" placeholder="Phone" className="form-control" />
+		}
+		else {
+			btnText = 'Log In'
+		}
+
 		return (
             <div className="well well-lg nobottommargin">
                 <h3>{ this.state.mode.toUpperCase() }</h3>
                 <hr style={{borderTop:'1px solid #777'}} />
                 <div className="col_full">
-                    <input type="text" id="login-form-username" name="login-form-username" value="" placeholder="Username" className="form-control" /><br />
-                    <input type="text" id="login-form-phone" name="login-form-phone" value="" placeholder="Phone" className="form-control" /><br />
-                    <input type="password" id="login-form-password" name="login-form-password" value="" placeholder="password" className="form-control" />
+                    <input type="text" id="login-form-username" name="login-form-username" value="" placeholder="Username" className="form-control" />
+                    {phoneField}
+                    <input type="password" style={{marginTop:22}} id="login-form-password" name="login-form-password" value="" placeholder="password" className="form-control" />
                 </div>
                 <button className="button button-xlarge button-border button-rounded tright">{btnText}</button><br />
                 Already a member? Login <a onClick={this.toggleMode} href="#">HERE</a>.

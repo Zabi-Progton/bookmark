@@ -45,7 +45,15 @@ var Register = (function (Component) {
 		},
 		render: {
 			value: function render() {
-				var btnText = this.state.mode == "register" ? "Join" : "Log In";
+				var btnText = null;
+				var phoneField = null;
+				if (this.state.mode == "register") {
+					btnText = "Join";
+					phoneField = React.createElement("input", { type: "text", style: { marginTop: 22 }, id: "login-form-phone", name: "login-form-phone", value: "", placeholder: "Phone", className: "form-control" });
+				} else {
+					btnText = "Log In";
+				}
+
 				return React.createElement(
 					"div",
 					{ className: "well well-lg nobottommargin" },
@@ -59,10 +67,8 @@ var Register = (function (Component) {
 						"div",
 						{ className: "col_full" },
 						React.createElement("input", { type: "text", id: "login-form-username", name: "login-form-username", value: "", placeholder: "Username", className: "form-control" }),
-						React.createElement("br", null),
-						React.createElement("input", { type: "text", id: "login-form-phone", name: "login-form-phone", value: "", placeholder: "Phone", className: "form-control" }),
-						React.createElement("br", null),
-						React.createElement("input", { type: "password", id: "login-form-password", name: "login-form-password", value: "", placeholder: "password", className: "form-control" })
+						phoneField,
+						React.createElement("input", { type: "password", style: { marginTop: 22 }, id: "login-form-password", name: "login-form-password", value: "", placeholder: "password", className: "form-control" })
 					),
 					React.createElement(
 						"button",

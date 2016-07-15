@@ -30825,7 +30825,15 @@
 		}, {
 			key: 'render',
 			value: function render() {
-				var btnText = this.state.mode == 'register' ? 'Join' : 'Log In';
+				var btnText = null;
+				var phoneField = null;
+				if (this.state.mode == 'register') {
+					btnText = 'Join';
+					phoneField = _react2.default.createElement('input', { type: 'text', style: { marginTop: 22 }, id: 'login-form-phone', name: 'login-form-phone', value: '', placeholder: 'Phone', className: 'form-control' });
+				} else {
+					btnText = 'Log In';
+				}
+	
 				return _react2.default.createElement(
 					'div',
 					{ className: 'well well-lg nobottommargin' },
@@ -30839,10 +30847,8 @@
 						'div',
 						{ className: 'col_full' },
 						_react2.default.createElement('input', { type: 'text', id: 'login-form-username', name: 'login-form-username', value: '', placeholder: 'Username', className: 'form-control' }),
-						_react2.default.createElement('br', null),
-						_react2.default.createElement('input', { type: 'text', id: 'login-form-phone', name: 'login-form-phone', value: '', placeholder: 'Phone', className: 'form-control' }),
-						_react2.default.createElement('br', null),
-						_react2.default.createElement('input', { type: 'password', id: 'login-form-password', name: 'login-form-password', value: '', placeholder: 'password', className: 'form-control' })
+						phoneField,
+						_react2.default.createElement('input', { type: 'password', style: { marginTop: 22 }, id: 'login-form-password', name: 'login-form-password', value: '', placeholder: 'password', className: 'form-control' })
 					),
 					_react2.default.createElement(
 						'button',
