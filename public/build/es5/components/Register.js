@@ -4,6 +4,8 @@ var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["defau
 
 var _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
 
+var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc && desc.writable) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
 var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
@@ -14,59 +16,76 @@ var React = _interopRequire(_react);
 
 var Component = _react.Component;
 var Register = (function (Component) {
-    function Register() {
-        _classCallCheck(this, Register);
+	function Register(props, context) {
+		_classCallCheck(this, Register);
 
-        if (Component != null) {
-            Component.apply(this, arguments);
-        }
-    }
+		_get(Object.getPrototypeOf(Register.prototype), "constructor", this).call(this, props, context);
+		this.toggleMode = this.toggleMode.bind(this);
+		this.state = {
+			mode: "register" // register or login
+		};
+	}
 
-    _inherits(Register, Component);
+	_inherits(Register, Component);
 
-    _prototypeProperties(Register, null, {
-        render: {
-            value: function render() {
-                return React.createElement(
-                    "div",
-                    { className: "well well-lg nobottommargin" },
-                    React.createElement(
-                        "h3",
-                        null,
-                        "Sign Up"
-                    ),
-                    React.createElement("hr", { style: { borderTop: "1px solid #777" } }),
-                    React.createElement(
-                        "div",
-                        { className: "col_full" },
-                        React.createElement("input", { type: "text", id: "login-form-username", name: "login-form-username", value: "", placeholder: "Username", className: "form-control" }),
-                        React.createElement("br", null),
-                        React.createElement("input", { type: "text", id: "login-form-phone", name: "login-form-phone", value: "", placeholder: "Phone", className: "form-control" }),
-                        React.createElement("br", null),
-                        React.createElement("input", { type: "password", id: "login-form-password", name: "login-form-password", value: "", placeholder: "password", className: "form-control" })
-                    ),
-                    React.createElement(
-                        "button",
-                        { className: "button button-xlarge button-border button-rounded tright" },
-                        "JOIN"
-                    ),
-                    React.createElement("br", null),
-                    "Already a member? Login ",
-                    React.createElement(
-                        "a",
-                        { href: "#" },
-                        "HERE"
-                    ),
-                    ".",
-                    React.createElement("br", null)
-                );
-            },
-            writable: true,
-            configurable: true
-        }
-    });
+	_prototypeProperties(Register, null, {
+		toggleMode: {
+			value: function toggleMode(event) {
+				event.preventDefault();
 
-    return Register;
+				var currentMode = this.state.mode;
+				var nextMode = currentMode == "register" ? "login" : "register";
+				console.log("Toggle Mode: " + nextMode);
+				this.setState({
+					mode: nextMode
+				});
+			},
+			writable: true,
+			configurable: true
+		},
+		render: {
+			value: function render() {
+				var btnText = this.state.mode == "register" ? "Join" : "Log In";
+				return React.createElement(
+					"div",
+					{ className: "well well-lg nobottommargin" },
+					React.createElement(
+						"h3",
+						null,
+						this.state.mode.toUpperCase()
+					),
+					React.createElement("hr", { style: { borderTop: "1px solid #777" } }),
+					React.createElement(
+						"div",
+						{ className: "col_full" },
+						React.createElement("input", { type: "text", id: "login-form-username", name: "login-form-username", value: "", placeholder: "Username", className: "form-control" }),
+						React.createElement("br", null),
+						React.createElement("input", { type: "text", id: "login-form-phone", name: "login-form-phone", value: "", placeholder: "Phone", className: "form-control" }),
+						React.createElement("br", null),
+						React.createElement("input", { type: "password", id: "login-form-password", name: "login-form-password", value: "", placeholder: "password", className: "form-control" })
+					),
+					React.createElement(
+						"button",
+						{ className: "button button-xlarge button-border button-rounded tright" },
+						btnText
+					),
+					React.createElement("br", null),
+					"Already a member? Login ",
+					React.createElement(
+						"a",
+						{ onClick: this.toggleMode, href: "#" },
+						"HERE"
+					),
+					".",
+					React.createElement("br", null)
+				);
+			},
+			writable: true,
+			configurable: true
+		}
+	});
+
+	return Register;
 })(Component);
 
 module.exports = Register;
