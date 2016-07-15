@@ -32,14 +32,13 @@ module.exports = {
 					return
 				}
 
-				// var summaries = []
-				// for (var i=0; i<profiles.length; i++){
-				// 	var profile = profiles[i]
-				// 	summaries.push(profile.summary())
-				// }
+				var summaries = []
+				for (var i=0; i<profiles.length; i++){
+					var profile = profiles[i]
+					summaries.push(profile.summary())
+				}
 
-				callback(null, profiles)
-
+				callback(null, summaries)
 			}
 		})
 	},

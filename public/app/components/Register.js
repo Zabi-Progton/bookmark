@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import APIManager from '../utils/APIManager'
 
 class Register extends Component {
 
@@ -6,6 +7,7 @@ class Register extends Component {
 		super(props, context)
 		this.toggleMode = this.toggleMode.bind(this)
 		this.updateVisitor = this.updateVisitor.bind(this)
+		this.submit = this.submit.bind(this)
 		this.state = {
 			mode: 'register', // register or login
 			visitor: {
@@ -17,8 +19,39 @@ class Register extends Component {
 	}
 
 	updateVisitor(event){
-		console.log(event.target.id+' = '+event.target.value)
+//		console.log(event.target.id+' = '+event.target.value)
+		var updatedVisitor = Object.assign({}, this.state.visitor)
+		updatedVisitor[event.target.id] = event.target.value
 
+		this.setState({
+			visitor: updatedVisitor
+		})
+	}
+
+	submit(){
+		if (this.state.visitor.username.length == 0){
+			alert('Please Enter a Username')
+			return
+		}
+
+		if (this.state.visitor.phone.length == 0){
+			alert('Please Enter Your Phone Number')
+			return
+		}
+
+		if (this.state.visitor.password.length == 0){
+			alert('Please Enter a Password')
+			return
+		}
+
+		APIManager.handlePost('/api/profile', this.state.visitor, function(err, response){
+			if (err){
+				alert(err.message)
+				return
+			}
+
+			console.log('POST: '+JSON.stringify(response))
+		})
 	}
 
 	toggleMode(event){
@@ -53,7 +86,7 @@ class Register extends Component {
                     {phoneField}
                     <input type="password" onChange={this.updateVisitor} style={{marginTop:22}} id="password" name="login-form-password" placeholder="password" className="form-control" />
                 </div>
-                <button className="button button-xlarge button-border button-rounded tright">{btnText}</button><br />
+                <button onClick={this.submit} className="button button-xlarge button-border button-rounded tright">{btnText}</button><br />
                 Already a member? Login <a onClick={this.toggleMode} href="#">HERE</a>.
                 <br />
 

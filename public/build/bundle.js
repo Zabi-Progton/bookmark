@@ -30787,6 +30787,10 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _APIManager = __webpack_require__(236);
+	
+	var _APIManager2 = _interopRequireDefault(_APIManager);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30805,6 +30809,7 @@
 	
 			_this.toggleMode = _this.toggleMode.bind(_this);
 			_this.updateVisitor = _this.updateVisitor.bind(_this);
+			_this.submit = _this.submit.bind(_this);
 			_this.state = {
 				mode: 'register', // register or login
 				visitor: {
@@ -30819,7 +30824,40 @@
 		_createClass(Register, [{
 			key: 'updateVisitor',
 			value: function updateVisitor(event) {
-				console.log(event.target.id + ' = ' + event.target.value);
+				//		console.log(event.target.id+' = '+event.target.value)
+				var updatedVisitor = Object.assign({}, this.state.visitor);
+				updatedVisitor[event.target.id] = event.target.value;
+	
+				this.setState({
+					visitor: updatedVisitor
+				});
+			}
+		}, {
+			key: 'submit',
+			value: function submit() {
+				if (this.state.visitor.username.length == 0) {
+					alert('Please Enter a Username');
+					return;
+				}
+	
+				if (this.state.visitor.phone.length == 0) {
+					alert('Please Enter Your Phone Number');
+					return;
+				}
+	
+				if (this.state.visitor.password.length == 0) {
+					alert('Please Enter a Password');
+					return;
+				}
+	
+				_APIManager2.default.handlePost('/api/profile', this.state.visitor, function (err, response) {
+					if (err) {
+						alert(err.message);
+						return;
+					}
+	
+					console.log('POST: ' + JSON.stringify(response));
+				});
 			}
 		}, {
 			key: 'toggleMode',
@@ -30863,7 +30901,7 @@
 					),
 					_react2.default.createElement(
 						'button',
-						{ className: 'button button-xlarge button-border button-rounded tright' },
+						{ onClick: this.submit, className: 'button button-xlarge button-border button-rounded tright' },
 						btnText
 					),
 					_react2.default.createElement('br', null),

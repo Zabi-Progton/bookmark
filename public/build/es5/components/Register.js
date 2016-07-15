@@ -15,6 +15,8 @@ var _react = require("react");
 var React = _interopRequire(_react);
 
 var Component = _react.Component;
+var APIManager = _interopRequire(require("../utils/APIManager"));
+
 var Register = (function (Component) {
 	function Register(props, context) {
 		_classCallCheck(this, Register);
@@ -22,6 +24,7 @@ var Register = (function (Component) {
 		_get(Object.getPrototypeOf(Register.prototype), "constructor", this).call(this, props, context);
 		this.toggleMode = this.toggleMode.bind(this);
 		this.updateVisitor = this.updateVisitor.bind(this);
+		this.submit = this.submit.bind(this);
 		this.state = {
 			mode: "register", // register or login
 			visitor: {
@@ -37,7 +40,42 @@ var Register = (function (Component) {
 	_prototypeProperties(Register, null, {
 		updateVisitor: {
 			value: function updateVisitor(event) {
-				console.log(event.target.id + " = " + event.target.value);
+				//		console.log(event.target.id+' = '+event.target.value)
+				var updatedVisitor = Object.assign({}, this.state.visitor);
+				updatedVisitor[event.target.id] = event.target.value;
+
+				this.setState({
+					visitor: updatedVisitor
+				});
+			},
+			writable: true,
+			configurable: true
+		},
+		submit: {
+			value: function submit() {
+				if (this.state.visitor.username.length == 0) {
+					alert("Please Enter a Username");
+					return;
+				}
+
+				if (this.state.visitor.phone.length == 0) {
+					alert("Please Enter Your Phone Number");
+					return;
+				}
+
+				if (this.state.visitor.password.length == 0) {
+					alert("Please Enter a Password");
+					return;
+				}
+
+				APIManager.handlePost("/api/profile", this.state.visitor, function (err, response) {
+					if (err) {
+						alert(err.message);
+						return;
+					}
+
+					console.log("POST: " + JSON.stringify(response));
+				});
 			},
 			writable: true,
 			configurable: true
@@ -85,7 +123,7 @@ var Register = (function (Component) {
 					),
 					React.createElement(
 						"button",
-						{ className: "button button-xlarge button-border button-rounded tright" },
+						{ onClick: this.submit, className: "button button-xlarge button-border button-rounded tright" },
 						btnText
 					),
 					React.createElement("br", null),
