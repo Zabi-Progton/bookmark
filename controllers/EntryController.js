@@ -19,6 +19,20 @@ var createEntry = function(entryParams){
 
 module.exports = {
 
+	find: function(params){
+		return new Promise(function(resolve, reject){
+
+			Entry.find(params, function(err, entries){
+				if (err){
+					reject(err)
+					return
+				}
+
+				resolve(entries)
+			})
+		})
+	},
+
 	get: function(params, isRaw, callback){
 		Entry.find(params, function(err, entries){
 			if (err){

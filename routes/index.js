@@ -27,6 +27,7 @@ matchRoutes = function(req, routes, initialStore){
 				return
 			}
 
+			console.log('TEST 4')
 			// if (redirectLocation){
 			// 	return
 			// }
@@ -129,11 +130,46 @@ router.get('/:page/:slug', function(req, res, next) {
 		return
 	}
 
-	entryController.get({phone:req.params.slug}, false, function(err, results){
-		if (err){
-			return
-		}
+	// entryController.get({phone:req.params.slug}, false, function(err, results){
+	// 	if (err){
+	// 		return
+	// 	}
 
+	// 	var entriesMap = {}
+	// 	for (var i=0; i<results.length; i++){
+	// 		var entry = results[i]
+	// 		var array = entriesMap[entry.phone]
+	// 		if (array == null)
+	// 			array = []
+
+	// 		array.push(entry)
+	// 		entriesMap[entry.phone] = array
+	// 	}
+
+	// 	var entriesReducer = {
+	// 		entries: entriesMap,
+	// 		entriesArray: results
+	// 	}
+
+	// 	var initialStore = store.configureStore({
+	// 		entriesReducer: entriesReducer
+	// 	})
+
+	// 	var routes = {
+	// 		path: '/:page/:phone',
+	// 		component: ServerApp,
+	// 		initial: initialStore,
+	// 		indexRoute: {
+	// 			component: Entries
+	// 		}
+	// 	}
+
+	// 	return matchRoutes(req, routes, initialStore)
+	// })
+
+	var initialStore = null
+	entryController.find({phone:req.params.slug})
+	.then(function(results){
 		var entriesMap = {}
 		for (var i=0; i<results.length; i++){
 			var entry = results[i]
@@ -150,7 +186,7 @@ router.get('/:page/:slug', function(req, res, next) {
 			entriesArray: results
 		}
 
-		var initialStore = store.configureStore({
+		initialStore = store.configureStore({
 			entriesReducer: entriesReducer
 		})
 
@@ -163,8 +199,21 @@ router.get('/:page/:slug', function(req, res, next) {
 			}
 		}
 
-		return matchRoutes(req, routes, initialStore)
+		return matchRoutes(req, routes, initialStore)		
 	})
+	.then(function(renderProps){
+		var html = ReactDOMServer.renderToString(React.createElement(ReactRouter.RouterContext, renderProps))
+
+		console.log('HTML: '+html)
+	    res.render('index', {react: html, preloadedState:JSON.stringify(initialStore.getState())})
+	    return
+	})
+	.catch(function(error){
+
+	})
+
+
+
 })
 
 
