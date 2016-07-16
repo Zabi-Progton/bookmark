@@ -27,20 +27,13 @@ matchRoutes = function(req, routes, initialStore){
 				return
 			}
 
-			console.log('TEST 4')
 			// if (redirectLocation){
 			// 	return
 			// }
 
 			resolve(renderProps)
-
-			// var html = ReactDOMServer.renderToString(React.createElement(ReactRouter.RouterContext, renderProps))
-		 //    res.render('index', {react: html, preloadedState:JSON.stringify(initialStore.getState())})
 		})
 	})
-
-
-
 }
 
 router.get('/', function(req, res, next) {
@@ -70,51 +63,12 @@ router.get('/', function(req, res, next) {
 	})
 	.then(function(renderProps){
 		var html = ReactDOMServer.renderToString(React.createElement(ReactRouter.RouterContext, renderProps))
-
-		console.log('HTML: '+html)
 	    res.render('index', {react: html, preloadedState:JSON.stringify(initialStore.getState())})
 	    return
 	})
 	.catch(function(err){
 
 	})
-
-
-	// profileController.get(null, false, function(err, results){
-	// 	if (err){
-	// 		return
-	// 	}
-
-	// 	var profilesReducer = {
-	// 		profiles:{},
-	// 		profilesArray: results
-	// 	}
-
-	// 	var initialStore = store.configureStore({
-	// 		profilesReducer: profilesReducer
-	// 	})
-
-	// 	var routes = {
-	// 		path: '/',
-	// 		component: ServerApp,
-	// 		initial: initialStore,
-	// 		indexRoute: {
-	// 			component: Home
-	// 		}
-	// 	}
-
-	// 	ReactRouter.match({ routes, location: req.url }, function(error, redirectLocation, renderProps){
-	// 		if (error){
-	// 			return
-	// 		}
-	// 		if (redirectLocation){
-	// 			return
-	// 		}
-
-	// 		var html = ReactDOMServer.renderToString(React.createElement(ReactRouter.RouterContext, renderProps))
-	// 	    res.render('index', {react: html, preloadedState:JSON.stringify(initialStore.getState())})
-	// 	})
-	// })
 })
 
 router.get('/:page', function(req, res, next) {
@@ -129,43 +83,6 @@ router.get('/:page/:slug', function(req, res, next) {
 		next()
 		return
 	}
-
-	// entryController.get({phone:req.params.slug}, false, function(err, results){
-	// 	if (err){
-	// 		return
-	// 	}
-
-	// 	var entriesMap = {}
-	// 	for (var i=0; i<results.length; i++){
-	// 		var entry = results[i]
-	// 		var array = entriesMap[entry.phone]
-	// 		if (array == null)
-	// 			array = []
-
-	// 		array.push(entry)
-	// 		entriesMap[entry.phone] = array
-	// 	}
-
-	// 	var entriesReducer = {
-	// 		entries: entriesMap,
-	// 		entriesArray: results
-	// 	}
-
-	// 	var initialStore = store.configureStore({
-	// 		entriesReducer: entriesReducer
-	// 	})
-
-	// 	var routes = {
-	// 		path: '/:page/:phone',
-	// 		component: ServerApp,
-	// 		initial: initialStore,
-	// 		indexRoute: {
-	// 			component: Entries
-	// 		}
-	// 	}
-
-	// 	return matchRoutes(req, routes, initialStore)
-	// })
 
 	var initialStore = null
 	entryController.find({phone:req.params.slug})
@@ -203,48 +120,13 @@ router.get('/:page/:slug', function(req, res, next) {
 	})
 	.then(function(renderProps){
 		var html = ReactDOMServer.renderToString(React.createElement(ReactRouter.RouterContext, renderProps))
-
-		console.log('HTML: '+html)
 	    res.render('index', {react: html, preloadedState:JSON.stringify(initialStore.getState())})
 	    return
 	})
 	.catch(function(error){
 
 	})
-
-
-
 })
 
-
-// router.get('/:page/:slug', function(req, res, next) {
-	// if (req.params.page == 'api'){
-	// 	next()
-	// 	return
-	// }
-
-	// var routes = {
-	// 	path: '/:page/:slug',
-	// 	component: ServerApp,
-	// 	indexRoute: {
-	// 		component: Entries
-	// 	}
-	// }
-	
-// 	ReactRouter.match({ routes, location: req.url }, function(error, redirectLocation, renderProps){
-// 		if (error){
-// 			console.log('ReactRouter - ERROR: '+error)
-// 			return
-// 		}
-// 		if (redirectLocation){
-// 			console.log('ReactRouter - redirectLocation: '+redirectLocation)
-// 			return
-// 		}
-
-// 		console.log('ReactRouter - renderProps: '+JSON.stringify(renderProps))
-// 		var html = ReactDOMServer.renderToString(React.createElement(ReactRouter.RouterContext, renderProps))
-// 	    res.render('index', {react: html})
-// 	})
-// })
 
 module.exports = router;
