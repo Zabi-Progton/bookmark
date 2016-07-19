@@ -84,6 +84,11 @@ router.get('/:page/:slug', function(req, res, next) {
 		return
 	}
 
+	if (req.params.page == 'account'){
+		next()
+		return
+	}
+
 	var initialStore = null
 	entryController.find({phone:req.params.slug})
 	.then(function(results){

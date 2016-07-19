@@ -25,6 +25,8 @@ var Register = (function (Component) {
 		this.toggleMode = this.toggleMode.bind(this);
 		this.updateVisitor = this.updateVisitor.bind(this);
 		this.submit = this.submit.bind(this);
+		this.register = this.register.bind(this);
+		this.login = this.login.bind(this);
 		this.state = {
 			mode: "register", // register or login
 			visitor: {
@@ -53,6 +55,43 @@ var Register = (function (Component) {
 		},
 		submit: {
 			value: function submit() {
+				if (this.state.mode == "register") {
+					this.register();
+				} else {
+					this.login();
+				}
+			},
+			writable: true,
+			configurable: true
+		},
+		login: {
+			value: function login() {
+				console.log("LOGIN: " + JSON.stringify(this.state.visitor));
+				if (this.state.visitor.username.length == 0) {
+					alert("Please Enter a Username");
+					return;
+				}
+
+				if (this.state.visitor.password.length == 0) {
+					alert("Please Enter a Password");
+					return;
+				}
+
+				APIManager.handlePost("/account/login", this.state.visitor, function (err, response) {
+					if (err) {
+						alert(err.message);
+						return;
+					}
+
+					console.log("POST: " + JSON.stringify(response));
+				});
+
+			},
+			writable: true,
+			configurable: true
+		},
+		register: {
+			value: function register() {
 				if (this.state.visitor.username.length == 0) {
 					alert("Please Enter a Username");
 					return;
