@@ -6,6 +6,7 @@ import actions from '../../actions/actions'
 import { connect } from 'react-redux'
 import Header from '../../components/Header'
 import Register from '../../components/Register'
+import EntryPreview from '../../components/EntryPreview'
 
 
 class Home extends Component {
@@ -19,31 +20,24 @@ class Home extends Component {
 
 	componentDidMount(){
 		console.log('componentDidMount: ')
-		if (this.props.profiles.length > 0)
-			return
+		// if (this.props.profiles.length > 0)
+		// 	return
 		
-		var _this = this
-		APIManager.handleGet('/api/profile', null, function(err, response){
-			if (err){
-				alert(err)
-				return
-			}
+		// var _this = this
+		// APIManager.handleGet('/api/profile', null, function(err, response){
+		// 	if (err){
+		// 		alert(err)
+		// 		return
+		// 	}
 
-			// console.log(JSON.stringify(response))
-			// _this.setState({
-			// 	profiles: response.results
-			// })
-
-			store.currentStore().dispatch(actions.profilesReceived(response.results))
-		})
+		// 	store.currentStore().dispatch(actions.profilesReceived(response.results))
+		// })
 	}
 
 	render(){
-		var links = this.props.profiles.map(function(profile, i){
+		var entriesList = this.props.entries.map(function(entry, i){
 			return (
-				<div key={profile._id}>
-					<Link to={'/entries/'+profile.phone}>{profile.phone}</Link>
-				</div>
+				<EntryPreview key={entry._id} entry={entry}/>
 			)
 
 		})
@@ -60,10 +54,12 @@ class Home extends Component {
 		                    </div>
 
 		                    <div className="col_two_third col_last nobottommargin">
-		                        <h3>This is the Home Page</h3>
-		                        {links}
+		                        <h3>Welcome To Bookmark!</h3>
 
-		                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde, vel odio non dicta provident sint ex autem mollitia dolorem illum repellat ipsum aliquid illo similique sapiente fugiat minus ratione.</p>
+		                        <div id="posts" className="events small-thumbs">
+			                        {entriesList}
+		                        </div>
+
 		                    </div>
 
 		                </div>
@@ -77,7 +73,8 @@ class Home extends Component {
 
 const stateToProps = function(state){
 	return {
-		profiles: state.profilesReducer.profilesArray
+//		profiles: state.profilesReducer.profilesArray
+		entries: state.entriesReducer.entriesArray
 
 	}
 }

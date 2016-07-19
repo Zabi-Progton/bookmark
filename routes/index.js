@@ -36,18 +36,53 @@ matchRoutes = function(req, routes, initialStore){
 	})
 }
 
+// router.get('/', function(req, res, next) {
+
+// 	var initialStore = null
+// 	profileController.find(null)
+// 	.then(function(results){
+// 		var profilesReducer = {
+// 			profiles:{},
+// 			profilesArray: results
+// 		}
+
+// 		initialStore = store.configureStore({
+// 			profilesReducer: profilesReducer
+// 		})
+
+// 		var routes = {
+// 			path: '/',
+// 			component: ServerApp,
+// 			initial: initialStore,
+// 			indexRoute: {
+// 				component: Home
+// 			}
+// 		}
+
+// 		return matchRoutes(req, routes, initialStore)
+// 	})
+// 	.then(function(renderProps){
+// 		var html = ReactDOMServer.renderToString(React.createElement(ReactRouter.RouterContext, renderProps))
+// 	    res.render('index', {react: html, preloadedState:JSON.stringify(initialStore.getState())})
+// 	    return
+// 	})
+// 	.catch(function(err){
+
+// 	})
+// })
+
 router.get('/', function(req, res, next) {
 
 	var initialStore = null
-	profileController.find(null)
+	entryController.find(null)
 	.then(function(results){
-		var profilesReducer = {
-			profiles:{},
-			profilesArray: results
+		var entriesReducer = {
+			entries:{},
+			entriesArray: results
 		}
 
 		initialStore = store.configureStore({
-			profilesReducer: profilesReducer
+			entriesReducer: entriesReducer
 		})
 
 		var routes = {
@@ -70,6 +105,7 @@ router.get('/', function(req, res, next) {
 
 	})
 })
+
 
 router.get('/:page', function(req, res, next) {
 

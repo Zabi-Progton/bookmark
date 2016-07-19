@@ -27,6 +27,8 @@ var Header = _interopRequire(require("../../components/Header"));
 
 var Register = _interopRequire(require("../../components/Register"));
 
+var EntryPreview = _interopRequire(require("../../components/EntryPreview"));
+
 var Home = (function (Component) {
 	function Home(props, context) {
 		_classCallCheck(this, Home);
@@ -41,38 +43,14 @@ var Home = (function (Component) {
 		componentDidMount: {
 			value: function componentDidMount() {
 				console.log("componentDidMount: ");
-				if (this.props.profiles.length > 0) {
-					return;
-				}var _this = this;
-				APIManager.handleGet("/api/profile", null, function (err, response) {
-					if (err) {
-						alert(err);
-						return;
-					}
-
-					// console.log(JSON.stringify(response))
-					// _this.setState({
-					// 	profiles: response.results
-					// })
-
-					store.currentStore().dispatch(actions.profilesReceived(response.results));
-				});
 			},
 			writable: true,
 			configurable: true
 		},
 		render: {
 			value: function render() {
-				var links = this.props.profiles.map(function (profile, i) {
-					return React.createElement(
-						"div",
-						{ key: profile._id },
-						React.createElement(
-							Link,
-							{ to: "/entries/" + profile.phone },
-							profile.phone
-						)
-					);
+				var entriesList = this.props.entries.map(function (entry, i) {
+					return React.createElement(EntryPreview, { key: entry._id, entry: entry });
 				});
 				return React.createElement(
 					"div",
@@ -98,13 +76,12 @@ var Home = (function (Component) {
 									React.createElement(
 										"h3",
 										null,
-										"This is the Home Page"
+										"Welcome To Bookmark!"
 									),
-									links,
 									React.createElement(
-										"p",
-										null,
-										"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde, vel odio non dicta provident sint ex autem mollitia dolorem illum repellat ipsum aliquid illo similique sapiente fugiat minus ratione."
+										"div",
+										{ id: "posts", className: "events small-thumbs" },
+										entriesList
 									)
 								)
 							)
@@ -122,9 +99,22 @@ var Home = (function (Component) {
 
 var stateToProps = function (state) {
 	return {
-		profiles: state.profilesReducer.profilesArray
+		//		profiles: state.profilesReducer.profilesArray
+		entries: state.entriesReducer.entriesArray
 
 	};
 };
 
 module.exports = connect(stateToProps)(Home);
+// if (this.props.profiles.length > 0)
+// 	return
+
+// var _this = this
+// APIManager.handleGet('/api/profile', null, function(err, response){
+// 	if (err){
+// 		alert(err)
+// 		return
+// 	}
+
+// 	store.currentStore().dispatch(actions.profilesReceived(response.results))
+// })

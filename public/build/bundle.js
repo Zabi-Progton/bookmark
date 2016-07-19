@@ -21216,6 +21216,10 @@
 	
 	var _Register2 = _interopRequireDefault(_Register);
 	
+	var _EntryPreview = __webpack_require__(278);
+	
+	var _EntryPreview2 = _interopRequireDefault(_EntryPreview);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21230,46 +21234,34 @@
 		function Home(props, context) {
 			_classCallCheck(this, Home);
 	
-			var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(Home).call(this, props, context));
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Home).call(this, props, context));
 	
-			_this2.state = {};
-			return _this2;
+			_this.state = {};
+			return _this;
 		}
 	
 		_createClass(Home, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				console.log('componentDidMount: ');
-				if (this.props.profiles.length > 0) return;
+				// if (this.props.profiles.length > 0)
+				// 	return
 	
-				var _this = this;
-				_APIManager2.default.handleGet('/api/profile', null, function (err, response) {
-					if (err) {
-						alert(err);
-						return;
-					}
+				// var _this = this
+				// APIManager.handleGet('/api/profile', null, function(err, response){
+				// 	if (err){
+				// 		alert(err)
+				// 		return
+				// 	}
 	
-					// console.log(JSON.stringify(response))
-					// _this.setState({
-					// 	profiles: response.results
-					// })
-	
-					_store2.default.currentStore().dispatch(_actions2.default.profilesReceived(response.results));
-				});
+				// 	store.currentStore().dispatch(actions.profilesReceived(response.results))
+				// })
 			}
 		}, {
 			key: 'render',
 			value: function render() {
-				var links = this.props.profiles.map(function (profile, i) {
-					return _react2.default.createElement(
-						'div',
-						{ key: profile._id },
-						_react2.default.createElement(
-							_reactRouter.Link,
-							{ to: '/entries/' + profile.phone },
-							profile.phone
-						)
-					);
+				var entriesList = this.props.entries.map(function (entry, i) {
+					return _react2.default.createElement(_EntryPreview2.default, { key: entry._id, entry: entry });
 				});
 				return _react2.default.createElement(
 					'div',
@@ -21295,13 +21287,12 @@
 									_react2.default.createElement(
 										'h3',
 										null,
-										'This is the Home Page'
+										'Welcome To Bookmark!'
 									),
-									links,
 									_react2.default.createElement(
-										'p',
-										null,
-										'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde, vel odio non dicta provident sint ex autem mollitia dolorem illum repellat ipsum aliquid illo similique sapiente fugiat minus ratione.'
+										'div',
+										{ id: 'posts', className: 'events small-thumbs' },
+										entriesList
 									)
 								)
 							)
@@ -21316,7 +21307,8 @@
 	
 	var stateToProps = function stateToProps(state) {
 		return {
-			profiles: state.profilesReducer.profilesArray
+			//		profiles: state.profilesReducer.profilesArray
+			entries: state.entriesReducer.entriesArray
 	
 		};
 	};
@@ -30928,7 +30920,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	    value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -30946,43 +30938,100 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var EntryPreview = function (_Component) {
-		_inherits(EntryPreview, _Component);
+	    _inherits(EntryPreview, _Component);
 	
-		function EntryPreview() {
-			_classCallCheck(this, EntryPreview);
+	    function EntryPreview() {
+	        _classCallCheck(this, EntryPreview);
 	
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(EntryPreview).apply(this, arguments));
-		}
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(EntryPreview).apply(this, arguments));
+	    }
 	
-		_createClass(EntryPreview, [{
-			key: 'render',
-			value: function render() {
-				var imageTag = this.props.entry.image.length == 0 ? null : _react2.default.createElement('img', { style: { width: 120 }, src: this.props.entry.image });
+	    _createClass(EntryPreview, [{
+	        key: 'render',
+	        value: function render() {
 	
-				return _react2.default.createElement(
-					'div',
-					{ style: { background: '#f9f9f9', border: '1px solid #ddd', padding: 16, marginBottom: 12 } },
-					imageTag,
-					_react2.default.createElement(
-						'h3',
-						null,
-						this.props.entry.title
-					),
-					_react2.default.createElement(
-						'a',
-						{ style: { textDecoration: 'none' }, target: '_blank', href: this.props.entry.url },
-						this.props.entry.url
-					),
-					_react2.default.createElement(
-						'p',
-						null,
-						this.props.entry.description
-					)
-				);
-			}
-		}]);
+	            var imageUrl = this.props.entry.image.length == 0 ? '/images/events/thumbs/1.jpg' : this.props.entry.image;
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'entry clearfix' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'entry-image hidden-sm' },
+	                    _react2.default.createElement(
+	                        'a',
+	                        { target: '_blank', href: this.props.entry.url },
+	                        _react2.default.createElement('img', { src: imageUrl, alt: 'Bookmark' })
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'entry-c' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'entry-title' },
+	                        _react2.default.createElement(
+	                            'h2',
+	                            null,
+	                            _react2.default.createElement(
+	                                'a',
+	                                { target: '_blank', href: this.props.entry.url },
+	                                this.props.entry.title
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'p',
+	                        null,
+	                        this.props.entry.description
+	                    ),
+	                    _react2.default.createElement(
+	                        'ul',
+	                        { className: 'entry-meta clearfix' },
+	                        _react2.default.createElement(
+	                            'li',
+	                            null,
+	                            _react2.default.createElement(
+	                                'span',
+	                                { className: 'label label-warning' },
+	                                'Private'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'li',
+	                            null,
+	                            _react2.default.createElement(
+	                                'a',
+	                                { href: '#' },
+	                                _react2.default.createElement('i', { className: 'icon-time' }),
+	                                ' 11:00 - 19:00'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'li',
+	                            null,
+	                            _react2.default.createElement(
+	                                'a',
+	                                { href: '#' },
+	                                _react2.default.createElement('i', { className: 'icon-map-marker2' }),
+	                                ' Melbourne'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'entry-content' },
+	                        _react2.default.createElement(
+	                            'a',
+	                            { target: '_blank', href: this.props.entry.url, className: 'btn btn-danger' },
+	                            'Read More'
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
 	
-		return EntryPreview;
+	    return EntryPreview;
 	}(_react.Component);
 	
 	exports.default = EntryPreview;

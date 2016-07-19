@@ -14,48 +14,104 @@ var React = _interopRequire(_react);
 
 var Component = _react.Component;
 var EntryPreview = (function (Component) {
-	function EntryPreview() {
-		_classCallCheck(this, EntryPreview);
+    function EntryPreview() {
+        _classCallCheck(this, EntryPreview);
 
-		if (Component != null) {
-			Component.apply(this, arguments);
-		}
-	}
+        if (Component != null) {
+            Component.apply(this, arguments);
+        }
+    }
 
-	_inherits(EntryPreview, Component);
+    _inherits(EntryPreview, Component);
 
-	_prototypeProperties(EntryPreview, null, {
-		render: {
-			value: function render() {
-				var imageTag = this.props.entry.image.length == 0 ? null : React.createElement("img", { style: { width: 120 }, src: this.props.entry.image });
+    _prototypeProperties(EntryPreview, null, {
+        render: {
+            value: function render() {
+                var imageUrl = this.props.entry.image.length == 0 ? "/images/events/thumbs/1.jpg" : this.props.entry.image;
+                return React.createElement(
+                    "div",
+                    { className: "entry clearfix" },
+                    React.createElement(
+                        "div",
+                        { className: "entry-image hidden-sm" },
+                        React.createElement(
+                            "a",
+                            { target: "_blank", href: this.props.entry.url },
+                            React.createElement("img", { src: imageUrl, alt: "Bookmark" })
+                        )
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "entry-c" },
+                        React.createElement(
+                            "div",
+                            { className: "entry-title" },
+                            React.createElement(
+                                "h2",
+                                null,
+                                React.createElement(
+                                    "a",
+                                    { target: "_blank", href: this.props.entry.url },
+                                    this.props.entry.title
+                                )
+                            )
+                        ),
+                        React.createElement(
+                            "p",
+                            null,
+                            this.props.entry.description
+                        ),
+                        React.createElement(
+                            "ul",
+                            { className: "entry-meta clearfix" },
+                            React.createElement(
+                                "li",
+                                null,
+                                React.createElement(
+                                    "span",
+                                    { className: "label label-warning" },
+                                    "Private"
+                                )
+                            ),
+                            React.createElement(
+                                "li",
+                                null,
+                                React.createElement(
+                                    "a",
+                                    { href: "#" },
+                                    React.createElement("i", { className: "icon-time" }),
+                                    " 11:00 - 19:00"
+                                )
+                            ),
+                            React.createElement(
+                                "li",
+                                null,
+                                React.createElement(
+                                    "a",
+                                    { href: "#" },
+                                    React.createElement("i", { className: "icon-map-marker2" }),
+                                    " Melbourne"
+                                )
+                            )
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "entry-content" },
+                            React.createElement(
+                                "a",
+                                { target: "_blank", href: this.props.entry.url, className: "btn btn-danger" },
+                                "Read More"
+                            )
+                        )
+                    )
+                );
+            },
+            writable: true,
+            configurable: true
+        }
+    });
 
-				return React.createElement(
-					"div",
-					{ style: { background: "#f9f9f9", border: "1px solid #ddd", padding: 16, marginBottom: 12 } },
-					imageTag,
-					React.createElement(
-						"h3",
-						null,
-						this.props.entry.title
-					),
-					React.createElement(
-						"a",
-						{ style: { textDecoration: "none" }, target: "_blank", href: this.props.entry.url },
-						this.props.entry.url
-					),
-					React.createElement(
-						"p",
-						null,
-						this.props.entry.description
-					)
-				);
-			},
-			writable: true,
-			configurable: true
-		}
-	});
-
-	return EntryPreview;
+    return EntryPreview;
 })(Component);
 
 module.exports = EntryPreview;
