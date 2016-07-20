@@ -21278,12 +21278,7 @@
 								{ className: 'container clearfix' },
 								_react2.default.createElement(
 									'div',
-									{ className: 'col_one_third nobottommargin' },
-									_react2.default.createElement(_Register2.default, null)
-								),
-								_react2.default.createElement(
-									'div',
-									{ className: 'col_two_third col_last nobottommargin' },
+									{ className: 'col_two_third nobottommargin' },
 									_react2.default.createElement(
 										'h3',
 										null,
@@ -21294,6 +21289,11 @@
 										{ id: 'posts', className: 'events small-thumbs' },
 										entriesList
 									)
+								),
+								_react2.default.createElement(
+									'div',
+									{ style: { position: 'fixed', right: 36 }, className: 'col_one_third col_last nobottommargin' },
+									_react2.default.createElement(_Register2.default, null)
 								)
 							)
 						)

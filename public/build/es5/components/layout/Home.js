@@ -67,12 +67,7 @@ var Home = (function (Component) {
 								{ className: "container clearfix" },
 								React.createElement(
 									"div",
-									{ className: "col_one_third nobottommargin" },
-									React.createElement(Register, null)
-								),
-								React.createElement(
-									"div",
-									{ className: "col_two_third col_last nobottommargin" },
+									{ className: "col_two_third nobottommargin" },
 									React.createElement(
 										"h3",
 										null,
@@ -83,6 +78,11 @@ var Home = (function (Component) {
 										{ id: "posts", className: "events small-thumbs" },
 										entriesList
 									)
+								),
+								React.createElement(
+									"div",
+									{ style: { position: "fixed", right: 36 }, className: "col_one_third col_last nobottommargin" },
+									React.createElement(Register, null)
 								)
 							)
 						)

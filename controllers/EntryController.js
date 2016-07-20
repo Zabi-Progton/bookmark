@@ -22,7 +22,7 @@ module.exports = {
 	find: function(params){
 		return new Promise(function(resolve, reject){
 
-			Entry.find(params, function(err, entries){
+			Entry.find(params, null, {sort:{timestamp:-1}}, function(err, entries){
 				if (err){
 					reject(err)
 					return

@@ -49,18 +49,18 @@ class Home extends Component {
 
 		            <div className="content-wrap">
 		                <div className="container clearfix">
-		                    <div className="col_one_third nobottommargin">
-		                    	<Register />
-		                    </div>
 
-		                    <div className="col_two_third col_last nobottommargin">
+		                    <div className="col_two_third nobottommargin">
 		                        <h3>Welcome To Bookmark!</h3>
-
 		                        <div id="posts" className="events small-thumbs">
 			                        {entriesList}
 		                        </div>
-
 		                    </div>
+
+		                    <div style={{position:'fixed', right:36}} className="col_one_third col_last nobottommargin">
+		                    	<Register />
+		                    </div>
+
 
 		                </div>
 		            </div>
