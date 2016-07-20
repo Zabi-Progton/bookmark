@@ -6,7 +6,8 @@ var EntrySchema = new mongoose.Schema({
 	image:{type:String, trim:true, default:''},
 	description:{type:String, trim:true, default:''},
 	phone:{type:String, trim:true, default:''},
-	profile:{type:String, trim:true, default:''},
+//	profile:{type:String, trim:true, default:''},
+	profile: {type:mongoose.Schema.Types.Mixed, default:{}},
 	url:{type:String, trim:true, default:''},
 	timestamp:{type:Date, default:Date.now}
 

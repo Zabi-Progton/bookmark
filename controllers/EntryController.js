@@ -111,6 +111,13 @@ module.exports = {
 					return
 				}
 				if (profiles.length > 0){ // registered user
+					var profile = profiles[0]
+					entry['profile'] = {
+						id: profile._id,
+						username: profile.username
+					}
+
+					entry.save()
 					callback(null, entry)
 					return
 				}
@@ -122,6 +129,12 @@ module.exports = {
 						return
 					}
 
+					entry['profile'] = {
+						id: profile._id,
+						username: profile.username
+					}
+
+					entry.save()
 					callback(null, entry)
 				})
 
