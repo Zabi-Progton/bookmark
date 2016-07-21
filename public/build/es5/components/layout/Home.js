@@ -52,6 +52,12 @@ var Home = (function (Component) {
 				var entriesList = this.props.entries.map(function (entry, i) {
 					return React.createElement(EntryPreview, { key: entry._id, entry: entry });
 				});
+
+				var rightCol = this.props.currentUser._id == null ? React.createElement(Register, null) : React.createElement(
+					"div",
+					null,
+					this.props.currentUser.username
+				);
 				return React.createElement(
 					"div",
 					null,
@@ -82,7 +88,7 @@ var Home = (function (Component) {
 								React.createElement(
 									"div",
 									{ style: { position: "fixed", right: 36 }, className: "col_one_third col_last nobottommargin" },
-									React.createElement(Register, null)
+									rightCol
 								)
 							)
 						)
@@ -100,7 +106,8 @@ var Home = (function (Component) {
 var stateToProps = function (state) {
 	return {
 		//		profiles: state.profilesReducer.profilesArray
-		entries: state.entriesReducer.entriesArray
+		entries: state.entriesReducer.entriesArray,
+		currentUser: state.accountReducer.currentUser
 
 	};
 };

@@ -21263,6 +21263,12 @@
 				var entriesList = this.props.entries.map(function (entry, i) {
 					return _react2.default.createElement(_EntryPreview2.default, { key: entry._id, entry: entry });
 				});
+	
+				var rightCol = this.props.currentUser._id == null ? _react2.default.createElement(_Register2.default, null) : _react2.default.createElement(
+					'div',
+					null,
+					this.props.currentUser.username
+				);
 				return _react2.default.createElement(
 					'div',
 					null,
@@ -21293,7 +21299,7 @@
 								_react2.default.createElement(
 									'div',
 									{ style: { position: 'fixed', right: 36 }, className: 'col_one_third col_last nobottommargin' },
-									_react2.default.createElement(_Register2.default, null)
+									rightCol
 								)
 							)
 						)
@@ -21308,7 +21314,8 @@
 	var stateToProps = function stateToProps(state) {
 		return {
 			//		profiles: state.profilesReducer.profilesArray
-			entries: state.entriesReducer.entriesArray
+			entries: state.entriesReducer.entriesArray,
+			currentUser: state.accountReducer.currentUser
 	
 		};
 	};
@@ -28584,6 +28591,10 @@
 	
 	var _profilesReducer2 = _interopRequireDefault(_profilesReducer);
 	
+	var _accountReducer = __webpack_require__(279);
+	
+	var _accountReducer2 = _interopRequireDefault(_accountReducer);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	// // Combine Reducers
@@ -28608,7 +28619,8 @@
 			// Combine Reducers
 			var reducers = (0, _redux.combineReducers)({
 				entriesReducer: _entriesReducer2.default,
-				profilesReducer: _profilesReducer2.default
+				profilesReducer: _profilesReducer2.default,
+				accountReducer: _accountReducer2.default
 			});
 	
 			// Create Store
@@ -29553,7 +29565,8 @@
 	module.exports = {
 	
 		ENTRIES_RECEIVED: 'ENTRIES_RECEIVED',
-		PROFILES_RECEIVED: 'PROFILES_RECEIVED'
+		PROFILES_RECEIVED: 'PROFILES_RECEIVED',
+		CURRENT_USER_RECEIVED: 'CURRENT_USER_RECEIVED'
 	
 	};
 
@@ -29616,7 +29629,6 @@
 	exports.default = {
 	
 		entriesReceived: function entriesReceived(entries) {
-			//		console.log('entriesReceived: '+JSON.stringify(entries))
 			return {
 				type: _constants2.default.ENTRIES_RECEIVED,
 				entries: entries
@@ -29624,10 +29636,16 @@
 		},
 	
 		profilesReceived: function profilesReceived(profiles) {
-			//		console.log('entriesReceived: '+JSON.stringify(entries))
 			return {
 				type: _constants2.default.PROFILES_RECEIVED,
 				profiles: profiles
+			};
+		},
+	
+		currentUserReceived: function currentUserReceived(currentUser) {
+			return {
+				type: _constants2.default.CURRENT_USER_RECEIVED,
+				currentUser: currentUser
 			};
 		}
 	
@@ -30632,6 +30650,14 @@
 	
 	var _APIManager2 = _interopRequireDefault(_APIManager);
 	
+	var _store = __webpack_require__(243);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _actions = __webpack_require__(261);
+	
+	var _actions2 = _interopRequireDefault(_actions);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30705,6 +30731,7 @@
 					}
 	
 					console.log('POST: ' + JSON.stringify(response));
+					_store2.default.currentStore().dispatch(_actions2.default.currentUserReceived(response.user));
 				});
 			}
 		}, {
@@ -31036,6 +31063,45 @@
 	};
 	
 	exports.default = (0, _reactRedux.connect)(stateToProps)(Entries);
+
+/***/ },
+/* 279 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	exports.default = function () {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
+		var action = arguments[1];
+	
+		switch (action.type) {
+	
+			case _constants2.default.CURRENT_USER_RECEIVED:
+				console.log('CURRENT_USER_RECEIVED');
+				var currentUser = action.currentUser;
+	
+				var newState = Object.assign({}, state);
+				newState['currentUser'] = currentUser;
+				return newState;
+	
+			default:
+				return state;
+		}
+	};
+	
+	var _constants = __webpack_require__(259);
+	
+	var _constants2 = _interopRequireDefault(_constants);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var initialState = {
+		currentUser: {}
+	};
 
 /***/ }
 /******/ ]);

@@ -39,8 +39,9 @@ class Home extends Component {
 			return (
 				<EntryPreview key={entry._id} entry={entry}/>
 			)
-
 		})
+
+		var rightCol = (this.props.currentUser._id == null) ? <Register /> : <div>{this.props.currentUser.username}</div>
 		return (
 			<div>
 				<Header />
@@ -58,7 +59,7 @@ class Home extends Component {
 		                    </div>
 
 		                    <div style={{position:'fixed', right:36}} className="col_one_third col_last nobottommargin">
-		                    	<Register />
+		                    	{rightCol}
 		                    </div>
 
 
@@ -74,7 +75,8 @@ class Home extends Component {
 const stateToProps = function(state){
 	return {
 //		profiles: state.profilesReducer.profilesArray
-		entries: state.entriesReducer.entriesArray
+		entries: state.entriesReducer.entriesArray,
+		currentUser: state.accountReducer.currentUser
 
 	}
 }
