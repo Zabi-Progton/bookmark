@@ -56,6 +56,7 @@ var Home = (function (Component) {
 				var rightCol = this.props.currentUser._id == null ? React.createElement(Register, null) : React.createElement(
 					"div",
 					null,
+					"Welcome ",
 					this.props.currentUser.username
 				);
 				return React.createElement(

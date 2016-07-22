@@ -18,6 +18,20 @@ module.exports = {
 		})
 	},
 
+	findById: function(id){
+		return new Promise(function(resolve, reject){
+
+			Profile.findById(id, function(err, profile){
+				if (err){
+					resolve(null)
+					return
+				}
+
+				resolve(profile)
+			})
+		})
+	},
+
 	get: function(params, isRaw, callback){
 		Profile.find(params, function(err, profiles){
 			if (err){

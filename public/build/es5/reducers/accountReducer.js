@@ -13,7 +13,7 @@ module.exports = function (_x, action) {
 	switch (action.type) {
 
 		case constants.CURRENT_USER_RECEIVED:
-			console.log("CURRENT_USER_RECEIVED");
+			//			console.log('CURRENT_USER_RECEIVED')
 			var currentUser = action.currentUser;
 
 			var newState = Object.assign({}, state);

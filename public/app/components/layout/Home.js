@@ -41,7 +41,7 @@ class Home extends Component {
 			)
 		})
 
-		var rightCol = (this.props.currentUser._id == null) ? <Register /> : <div>{this.props.currentUser.username}</div>
+		var rightCol = (this.props.currentUser._id == null) ? <Register /> : <div>Welcome {this.props.currentUser.username}</div>
 		return (
 			<div>
 				<Header />

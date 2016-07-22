@@ -21267,6 +21267,7 @@
 				var rightCol = this.props.currentUser._id == null ? _react2.default.createElement(_Register2.default, null) : _react2.default.createElement(
 					'div',
 					null,
+					'Welcome ',
 					this.props.currentUser.username
 				);
 				return _react2.default.createElement(
@@ -31081,7 +31082,7 @@
 		switch (action.type) {
 	
 			case _constants2.default.CURRENT_USER_RECEIVED:
-				console.log('CURRENT_USER_RECEIVED');
+				//			console.log('CURRENT_USER_RECEIVED')
 				var currentUser = action.currentUser;
 	
 				var newState = Object.assign({}, state);
