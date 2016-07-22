@@ -15,47 +15,53 @@ var _react = require("react");
 var React = _interopRequire(_react);
 
 var Component = _react.Component;
-var Link = require("react-router").Link;
-var APIManager = _interopRequire(require("../../utils/APIManager"));
-
-var store = _interopRequire(require("../../stores/store"));
-
-var actions = _interopRequire(require("../../actions/actions"));
-
-var connect = require("react-redux").connect;
 var Header = _interopRequire(require("../../components/Header"));
 
-var Register = _interopRequire(require("../../components/Register"));
+var connect = require("react-redux").connect;
+var Account = (function (Component) {
+	function Account(props, context) {
+		_classCallCheck(this, Account);
 
-var EntryPreview = _interopRequire(require("../../components/EntryPreview"));
+		_get(Object.getPrototypeOf(Account.prototype), "constructor", this).call(this, props, context);
+		this.updateUser = this.updateUser.bind(this);
+		this.state = {
+			user: {
+				username: "" }
 
-var ProfilePreview = _interopRequire(require("../../components/ProfilePreview"));
-
-var Home = (function (Component) {
-	function Home(props, context) {
-		_classCallCheck(this, Home);
-
-		_get(Object.getPrototypeOf(Home.prototype), "constructor", this).call(this, props, context);
-		this.state = {};
+		};
 	}
 
-	_inherits(Home, Component);
+	_inherits(Account, Component);
 
-	_prototypeProperties(Home, null, {
+	_prototypeProperties(Account, null, {
 		componentDidMount: {
 			value: function componentDidMount() {
-				console.log("componentDidMount: ");
+				var userCopy = Object.assign({}, this.props.currentUser);
+				console.log("componentDidMount: " + JSON.stringify(userCopy));
+
+				this.setState({
+					user: userCopy
+				});
+			},
+			writable: true,
+			configurable: true
+		},
+		updateUser: {
+			value: function updateUser(event) {
+				event.preventDefault();
+				console.log("updateUser: ");
+				var updated = Object.assign({}, this.state.user);
+				updated[event.target.id] = event.target.value;
+
+				this.setState({
+					user: updated
+				});
 			},
 			writable: true,
 			configurable: true
 		},
 		render: {
 			value: function render() {
-				var entriesList = this.props.entries.map(function (entry, i) {
-					return React.createElement(EntryPreview, { key: entry._id, entry: entry });
-				});
-
-				var rightCol = this.props.currentUser._id == null ? React.createElement(Register, null) : React.createElement(ProfilePreview, { profile: this.props.currentUser });
 				return React.createElement(
 					"div",
 					null,
@@ -75,18 +81,11 @@ var Home = (function (Component) {
 									React.createElement(
 										"h3",
 										null,
-										"Welcome To Bookmark!"
+										"Welcome ",
+										this.props.currentUser.username
 									),
-									React.createElement(
-										"div",
-										{ id: "posts", className: "events small-thumbs" },
-										entriesList
-									)
-								),
-								React.createElement(
-									"div",
-									{ style: { position: "fixed", right: 36 }, className: "col_one_third col_last nobottommargin" },
-									rightCol
+									React.createElement("input", { onChange: this.updateUser, value: this.state.user.username, type: "text", id: "username", name: "login-form-username", placeholder: "Username", className: "form-control" }),
+									React.createElement("div", { id: "posts", className: "events small-thumbs" })
 								)
 							)
 						)
@@ -98,28 +97,15 @@ var Home = (function (Component) {
 		}
 	});
 
-	return Home;
+	return Account;
 })(Component);
 
 var stateToProps = function (state) {
 	return {
 		//		profiles: state.profilesReducer.profilesArray
-		entries: state.entriesReducer.entriesArray,
 		currentUser: state.accountReducer.currentUser
 
 	};
 };
 
-module.exports = connect(stateToProps)(Home);
-// if (this.props.profiles.length > 0)
-// 	return
-
-// var _this = this
-// APIManager.handleGet('/api/profile', null, function(err, response){
-// 	if (err){
-// 		alert(err)
-// 		return
-// 	}
-
-// 	store.currentStore().dispatch(actions.profilesReceived(response.results))
-// })
+module.exports = connect(stateToProps)(Account);

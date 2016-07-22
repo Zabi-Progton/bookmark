@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import Header from '../../components/Header'
 import Register from '../../components/Register'
 import EntryPreview from '../../components/EntryPreview'
+import ProfilePreview from '../../components/ProfilePreview'
 
 
 class Home extends Component {
@@ -41,7 +42,7 @@ class Home extends Component {
 			)
 		})
 
-		var rightCol = (this.props.currentUser._id == null) ? <Register /> : <div>Welcome {this.props.currentUser.username}</div>
+		var rightCol = (this.props.currentUser._id == null) ? <Register /> : <ProfilePreview profile={this.props.currentUser} />
 		return (
 			<div>
 				<Header />
