@@ -79,8 +79,21 @@ module.exports = {
 			params['password'] = hashed
 		}
 
-
 		Profile.create(params, function(err, profile){
+			if (err){
+				if (callback != null)
+					callback(err, null)
+
+				return
+			}
+
+			if (callback != null)
+				callback(null, profile.summary())
+		})
+	},
+
+	put: function(id, params, callback){
+		Profile.findByIdAndUpdate(id, params, {new:true}, function(err, profile){
 			if (err){
 				if (callback != null)
 					callback(err, null)

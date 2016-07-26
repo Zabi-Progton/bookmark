@@ -27009,6 +27009,19 @@
 	
 				if (res.body.confirmation == 'success') completion(null, res.body);else completion({ message: res.body.message }, null);
 			});
+		},
+	
+		handlePut: function handlePut(endpoint, body, completion) {
+			_superagent2.default.put(endpoint).send(body).set('Accept', 'application/json').end(function (err, res) {
+				if (completion == null) return;
+	
+				if (err) {
+					completion(err, null);
+					return;
+				}
+	
+				if (res.body.confirmation == 'success') completion(null, res.body);else completion({ message: res.body.message }, null);
+			});
 		}
 	
 	};
@@ -31078,6 +31091,10 @@
 	
 	var _reactRedux = __webpack_require__(263);
 	
+	var _APIManager = __webpack_require__(237);
+	
+	var _APIManager2 = _interopRequireDefault(_APIManager);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -31094,14 +31111,13 @@
 	
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Account).call(this, props, context));
 	
+			_this.submitUpdate = _this.submitUpdate.bind(_this);
 			_this.updateUser = _this.updateUser.bind(_this);
 			_this.state = {
 				user: {
 					username: ''
 				}
-	
 			};
-	
 			return _this;
 		}
 	
@@ -31109,7 +31125,7 @@
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				var userCopy = Object.assign({}, this.props.currentUser);
-				console.log('componentDidMount: ' + JSON.stringify(userCopy));
+				//		console.log('componentDidMount: '+JSON.stringify(userCopy))
 	
 				this.setState({
 					user: userCopy
@@ -31119,12 +31135,27 @@
 			key: 'updateUser',
 			value: function updateUser(event) {
 				event.preventDefault();
-				console.log('updateUser: ');
+				//		console.log('updateUser: ')
 				var updated = Object.assign({}, this.state.user);
 				updated[event.target.id] = event.target.value;
 	
 				this.setState({
 					user: updated
+				});
+			}
+		}, {
+			key: 'submitUpdate',
+			value: function submitUpdate(event) {
+				event.preventDefault();
+				//		console.log('submitUpdate: '+JSON.stringify(this.state.user))
+				var endpoint = '/api/profile/' + this.state.user._id;
+				_APIManager2.default.handlePut(endpoint, this.state.user, function (err, response) {
+					if (err) {
+						alert(err.message);
+						return;
+					}
+	
+					alert('Update Successful!');
 				});
 			}
 		}, {
@@ -31152,7 +31183,14 @@
 										'Welcome ',
 										this.props.currentUser.username
 									),
-									_react2.default.createElement('input', { onChange: this.updateUser, value: this.state.user.username, type: 'text', id: 'username', name: 'login-form-username', placeholder: 'Username', className: 'form-control' }),
+									_react2.default.createElement('input', { onChange: this.updateUser, value: this.state.user.username, type: 'text', id: 'username', placeholder: 'Username', className: 'form-control' }),
+									_react2.default.createElement('br', null),
+									_react2.default.createElement('input', { onChange: this.updateUser, value: this.state.user.phone, type: 'text', id: 'phone', placeholder: 'Phone Number', className: 'form-control' }),
+									_react2.default.createElement(
+										'button',
+										{ onClick: this.submitUpdate },
+										'Update'
+									),
 									_react2.default.createElement('div', { id: 'posts', className: 'events small-thumbs' })
 								)
 							)

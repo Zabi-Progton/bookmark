@@ -18,16 +18,18 @@ var Component = _react.Component;
 var Header = _interopRequire(require("../../components/Header"));
 
 var connect = require("react-redux").connect;
+var APIManager = _interopRequire(require("../../utils/APIManager"));
+
 var Account = (function (Component) {
 	function Account(props, context) {
 		_classCallCheck(this, Account);
 
 		_get(Object.getPrototypeOf(Account.prototype), "constructor", this).call(this, props, context);
+		this.submitUpdate = this.submitUpdate.bind(this);
 		this.updateUser = this.updateUser.bind(this);
 		this.state = {
 			user: {
 				username: "" }
-
 		};
 	}
 
@@ -37,7 +39,7 @@ var Account = (function (Component) {
 		componentDidMount: {
 			value: function componentDidMount() {
 				var userCopy = Object.assign({}, this.props.currentUser);
-				console.log("componentDidMount: " + JSON.stringify(userCopy));
+				//		console.log('componentDidMount: '+JSON.stringify(userCopy))
 
 				this.setState({
 					user: userCopy
@@ -49,12 +51,29 @@ var Account = (function (Component) {
 		updateUser: {
 			value: function updateUser(event) {
 				event.preventDefault();
-				console.log("updateUser: ");
+				//		console.log('updateUser: ')
 				var updated = Object.assign({}, this.state.user);
 				updated[event.target.id] = event.target.value;
 
 				this.setState({
 					user: updated
+				});
+			},
+			writable: true,
+			configurable: true
+		},
+		submitUpdate: {
+			value: function submitUpdate(event) {
+				event.preventDefault();
+				//		console.log('submitUpdate: '+JSON.stringify(this.state.user))
+				var endpoint = "/api/profile/" + this.state.user._id;
+				APIManager.handlePut(endpoint, this.state.user, function (err, response) {
+					if (err) {
+						alert(err.message);
+						return;
+					}
+
+					alert("Update Successful!");
 				});
 			},
 			writable: true,
@@ -84,7 +103,14 @@ var Account = (function (Component) {
 										"Welcome ",
 										this.props.currentUser.username
 									),
-									React.createElement("input", { onChange: this.updateUser, value: this.state.user.username, type: "text", id: "username", name: "login-form-username", placeholder: "Username", className: "form-control" }),
+									React.createElement("input", { onChange: this.updateUser, value: this.state.user.username, type: "text", id: "username", placeholder: "Username", className: "form-control" }),
+									React.createElement("br", null),
+									React.createElement("input", { onChange: this.updateUser, value: this.state.user.phone, type: "text", id: "phone", placeholder: "Phone Number", className: "form-control" }),
+									React.createElement(
+										"button",
+										{ onClick: this.submitUpdate },
+										"Update"
+									),
 									React.createElement("div", { id: "posts", className: "events small-thumbs" })
 								)
 							)

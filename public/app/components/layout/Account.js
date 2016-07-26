@@ -1,25 +1,24 @@
 import React, { Component } from 'react'
 import Header from '../../components/Header'
 import { connect } from 'react-redux'
-
+import APIManager from '../../utils/APIManager'
 
 class Account extends Component {
 
 	constructor(props, context){
 		super(props, context)
+		this.submitUpdate = this.submitUpdate.bind(this)
 		this.updateUser = this.updateUser.bind(this)
 		this.state = {
 			user: {
 				username:'',
 			}
-
 		}
-
 	}
 
 	componentDidMount(){
 		var userCopy = Object.assign({}, this.props.currentUser)
-		console.log('componentDidMount: '+JSON.stringify(userCopy))
+//		console.log('componentDidMount: '+JSON.stringify(userCopy))
 
 		this.setState({
 			user: userCopy
@@ -28,14 +27,27 @@ class Account extends Component {
 
 	updateUser(event){
 		event.preventDefault()
-		console.log('updateUser: ')
+//		console.log('updateUser: ')
 		var updated = Object.assign({}, this.state.user)
 		updated[event.target.id] = event.target.value
 		
 		this.setState({
 			user: updated
 		})
+	}
 
+	submitUpdate(event){
+		event.preventDefault()
+//		console.log('submitUpdate: '+JSON.stringify(this.state.user))
+		var endpoint = '/api/profile/'+this.state.user._id
+		APIManager.handlePut(endpoint, this.state.user, function(err, response){
+			if (err){
+				alert(err.message)
+				return
+			}
+
+			alert('Update Successful!')
+		})
 	}
 
 	render(){
@@ -50,7 +62,9 @@ class Account extends Component {
 		                    <div className="col_two_third nobottommargin">
 		                        <h3>Welcome {this.props.currentUser.username}</h3>
 
-			                    <input onChange={this.updateUser} value={this.state.user.username} type="text" id="username" name="login-form-username" placeholder="Username" className="form-control" />
+			                    <input onChange={this.updateUser} value={this.state.user.username} type="text" id="username" placeholder="Username" className="form-control" /><br />
+			                    <input onChange={this.updateUser} value={this.state.user.phone} type="text" id="phone" placeholder="Phone Number" className="form-control" />
+			                    <button onClick={this.submitUpdate}>Update</button>
 
 		                        <div id="posts" className="events small-thumbs">
 
