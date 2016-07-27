@@ -31121,6 +31121,14 @@
 	
 	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
 	
+	var _store = __webpack_require__(243);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _actions = __webpack_require__(262);
+	
+	var _actions2 = _interopRequireDefault(_actions);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -31173,7 +31181,6 @@
 		}, {
 			key: 'uploadProfileImage',
 			value: function uploadProfileImage(files) {
-				console.log('uploadProfileImage: ');
 				var _this = this;
 				_APIManager2.default.upload(files[0], function (err, response) {
 					if (err) {
@@ -31181,8 +31188,7 @@
 						return;
 					}
 	
-					console.log(JSON.stringify(response));
-					//			var image = response.image
+					//			console.log(JSON.stringify(response))
 					var updated = Object.assign({}, _this.state.user);
 					updated['image'] = response.id;
 	
@@ -31195,7 +31201,6 @@
 			key: 'submitUpdate',
 			value: function submitUpdate(event) {
 				event.preventDefault();
-				//		console.log('submitUpdate: '+JSON.stringify(this.state.user))
 	
 				var endpoint = '/api/profile/' + this.state.user._id;
 				_APIManager2.default.handlePut(endpoint, this.state.user, function (err, response) {
@@ -31204,13 +31209,14 @@
 						return;
 					}
 	
-					alert('Update Successful!');
+					//			alert('Update Successful!')
+					_store2.default.currentStore().dispatch(_actions2.default.currentUserReceived(response.result));
 				});
 			}
 		}, {
 			key: 'render',
 			value: function render() {
-				var img = this.props.currentUser.image.length == 0 ? null : _react2.default.createElement('img', { src: 'https://media-service.appspot.com/site/images/' + this.props.currentUser.image });
+				var img = this.props.currentUser.image.length == 0 ? null : _react2.default.createElement('img', { style: { width: 110, borderRadius: 55 }, src: 'https://media-service.appspot.com/site/images/' + this.props.currentUser.image + '?crop=220' });
 	
 				return _react2.default.createElement(
 					'div',

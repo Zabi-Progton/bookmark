@@ -3,6 +3,8 @@ import Header from '../../components/Header'
 import { connect } from 'react-redux'
 import APIManager from '../../utils/APIManager'
 import Dropzone from 'react-dropzone'
+import store from '../../stores/store'
+import actions from '../../actions/actions'
 
 class Account extends Component {
 
@@ -39,7 +41,6 @@ class Account extends Component {
 	}
 
 	uploadProfileImage(files){
-		console.log('uploadProfileImage: ')
 		var _this = this
 		APIManager.upload(files[0], function(err, response){
 			if (err){
@@ -47,8 +48,7 @@ class Account extends Component {
 				return
 			}
 
-			console.log(JSON.stringify(response))
-//			var image = response.image
+//			console.log(JSON.stringify(response))
 			var updated = Object.assign({}, _this.state.user)
 			updated['image'] = response.id
 			
@@ -60,7 +60,6 @@ class Account extends Component {
 
 	submitUpdate(event){
 		event.preventDefault()
-//		console.log('submitUpdate: '+JSON.stringify(this.state.user))
 		
 		var endpoint = '/api/profile/'+this.state.user._id
 		APIManager.handlePut(endpoint, this.state.user, function(err, response){
@@ -69,13 +68,13 @@ class Account extends Component {
 				return
 			}
 
-			alert('Update Successful!')
-
+//			alert('Update Successful!')
+			store.currentStore().dispatch(actions.currentUserReceived(response.result))
 		})
 	}
 
 	render(){
-		var img = (this.props.currentUser.image.length == 0) ? null : <img src={'https://media-service.appspot.com/site/images/'+this.props.currentUser.image} />
+		var img = (this.props.currentUser.image.length == 0) ? null : <img style={{width:110, borderRadius:55}} src={'https://media-service.appspot.com/site/images/'+this.props.currentUser.image+'?crop=220'} />
 
 		return (
 			<div>

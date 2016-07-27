@@ -22,6 +22,10 @@ var APIManager = _interopRequire(require("../../utils/APIManager"));
 
 var Dropzone = _interopRequire(require("react-dropzone"));
 
+var store = _interopRequire(require("../../stores/store"));
+
+var actions = _interopRequire(require("../../actions/actions"));
+
 var Account = (function (Component) {
 	function Account(props, context) {
 		_classCallCheck(this, Account);
@@ -67,7 +71,6 @@ var Account = (function (Component) {
 		},
 		uploadProfileImage: {
 			value: function uploadProfileImage(files) {
-				console.log("uploadProfileImage: ");
 				var _this = this;
 				APIManager.upload(files[0], function (err, response) {
 					if (err) {
@@ -75,8 +78,7 @@ var Account = (function (Component) {
 						return;
 					}
 
-					console.log(JSON.stringify(response));
-					//			var image = response.image
+					//			console.log(JSON.stringify(response))
 					var updated = Object.assign({}, _this.state.user);
 					updated.image = response.id;
 
@@ -91,7 +93,6 @@ var Account = (function (Component) {
 		submitUpdate: {
 			value: function submitUpdate(event) {
 				event.preventDefault();
-				//		console.log('submitUpdate: '+JSON.stringify(this.state.user))
 
 				var endpoint = "/api/profile/" + this.state.user._id;
 				APIManager.handlePut(endpoint, this.state.user, function (err, response) {
@@ -100,7 +101,8 @@ var Account = (function (Component) {
 						return;
 					}
 
-					alert("Update Successful!");
+					//			alert('Update Successful!')
+					store.currentStore().dispatch(actions.currentUserReceived(response.result));
 				});
 			},
 			writable: true,
@@ -108,7 +110,7 @@ var Account = (function (Component) {
 		},
 		render: {
 			value: function render() {
-				var img = this.props.currentUser.image.length == 0 ? null : React.createElement("img", { src: "https://media-service.appspot.com/site/images/" + this.props.currentUser.image });
+				var img = this.props.currentUser.image.length == 0 ? null : React.createElement("img", { style: { width: 110, borderRadius: 55 }, src: "https://media-service.appspot.com/site/images/" + this.props.currentUser.image + "?crop=220" });
 
 				return React.createElement(
 					"div",

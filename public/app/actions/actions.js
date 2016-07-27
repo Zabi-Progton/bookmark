@@ -21,7 +21,6 @@ export default {
 			type: constants.CURRENT_USER_RECEIVED,
 			currentUser: currentUser
 		}
-
 	}
 
 }
