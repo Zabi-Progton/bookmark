@@ -86,7 +86,29 @@ export default {
 			else 
 	    		completion({message:res.body.message}, null)
 		})
-	}	
+	},
+
+	upload: function(file, completion){
+		var _file = file
+		this.handleGet('https://media-service.appspot.com/api/upload', null, function(err, response){
+			if (err){
+				return
+			}
+
+	        var uploadRequest = superagent.post(response.upload)
+	        uploadRequest.attach('file', _file)
+	        uploadRequest.end(function(err, resp){
+	        	if (err){
+			      	console.log('UPLOAD ERROR: '+JSON.stringify(err))
+					completion(err, null)
+	              	return
+	        	}
+
+		      	var image = resp.body.image
+				completion(null, image)
+	        })
+		})
+	}
 
 
 }

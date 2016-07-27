@@ -3,6 +3,7 @@ var mongoose = require('mongoose')
 var ProfileSchema = new mongoose.Schema({
 
 	firstName:{type:String, trim:true, lowercase:true, default:''},
+	image:{type:String, default:''},
 	lastName:{type:String, trim:true, lowercase:true, default:''},
 	username:{type:String, trim:true, default:''},
 	email:{type:String, trim:true, lowercase:true, default:''},
@@ -14,6 +15,7 @@ var ProfileSchema = new mongoose.Schema({
 ProfileSchema.methods.summary = function(){
 	var summary = {
 		username: this.username,
+		image: this.image,
 		phone: this.phone,
 		timestamp: this.timestamp,
 		_id: this._id,

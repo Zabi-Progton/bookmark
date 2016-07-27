@@ -20,6 +20,8 @@ var Header = _interopRequire(require("../../components/Header"));
 var connect = require("react-redux").connect;
 var APIManager = _interopRequire(require("../../utils/APIManager"));
 
+var Dropzone = _interopRequire(require("react-dropzone"));
+
 var Account = (function (Component) {
 	function Account(props, context) {
 		_classCallCheck(this, Account);
@@ -27,6 +29,7 @@ var Account = (function (Component) {
 		_get(Object.getPrototypeOf(Account.prototype), "constructor", this).call(this, props, context);
 		this.submitUpdate = this.submitUpdate.bind(this);
 		this.updateUser = this.updateUser.bind(this);
+		this.uploadProfileImage = this.uploadProfileImage.bind(this);
 		this.state = {
 			user: {
 				username: "" }
@@ -36,10 +39,10 @@ var Account = (function (Component) {
 	_inherits(Account, Component);
 
 	_prototypeProperties(Account, null, {
-		componentDidMount: {
-			value: function componentDidMount() {
+		componentWillMount: {
+			value: function componentWillMount() {
+				console.log("componentWillMount: ");
 				var userCopy = Object.assign({}, this.props.currentUser);
-				//		console.log('componentDidMount: '+JSON.stringify(userCopy))
 
 				this.setState({
 					user: userCopy
@@ -62,10 +65,34 @@ var Account = (function (Component) {
 			writable: true,
 			configurable: true
 		},
+		uploadProfileImage: {
+			value: function uploadProfileImage(files) {
+				console.log("uploadProfileImage: ");
+				var _this = this;
+				APIManager.upload(files[0], function (err, response) {
+					if (err) {
+						alert(err.message);
+						return;
+					}
+
+					console.log(JSON.stringify(response));
+					//			var image = response.image
+					var updated = Object.assign({}, _this.state.user);
+					updated.image = response.id;
+
+					_this.setState({
+						user: updated
+					});
+				});
+			},
+			writable: true,
+			configurable: true
+		},
 		submitUpdate: {
 			value: function submitUpdate(event) {
 				event.preventDefault();
 				//		console.log('submitUpdate: '+JSON.stringify(this.state.user))
+
 				var endpoint = "/api/profile/" + this.state.user._id;
 				APIManager.handlePut(endpoint, this.state.user, function (err, response) {
 					if (err) {
@@ -81,6 +108,8 @@ var Account = (function (Component) {
 		},
 		render: {
 			value: function render() {
+				var img = this.props.currentUser.image.length == 0 ? null : React.createElement("img", { src: "https://media-service.appspot.com/site/images/" + this.props.currentUser.image });
+
 				return React.createElement(
 					"div",
 					null,
@@ -97,6 +126,7 @@ var Account = (function (Component) {
 								React.createElement(
 									"div",
 									{ className: "col_two_third nobottommargin" },
+									img,
 									React.createElement(
 										"h3",
 										null,
@@ -106,6 +136,14 @@ var Account = (function (Component) {
 									React.createElement("input", { onChange: this.updateUser, value: this.state.user.username, type: "text", id: "username", placeholder: "Username", className: "form-control" }),
 									React.createElement("br", null),
 									React.createElement("input", { onChange: this.updateUser, value: this.state.user.phone, type: "text", id: "phone", placeholder: "Phone Number", className: "form-control" }),
+									React.createElement("br", null),
+									React.createElement(
+										Dropzone,
+										{ onDrop: this.uploadProfileImage },
+										this.state.user.image.length == 0 ? null : React.createElement("img", { src: "https://media-service.appspot.com/site/images/" + this.state.user.image + "?crop=64" }),
+										"Drag & Drop image here"
+									),
+									React.createElement("br", null),
 									React.createElement(
 										"button",
 										{ onClick: this.submitUpdate },
