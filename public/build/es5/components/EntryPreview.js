@@ -13,6 +13,8 @@ var _react = require("react");
 var React = _interopRequire(_react);
 
 var Component = _react.Component;
+var DateUtils = _interopRequire(require("../utils/DateUtils"));
+
 var EntryPreview = (function (Component) {
     function EntryPreview() {
         _classCallCheck(this, EntryPreview);
@@ -78,7 +80,8 @@ var EntryPreview = (function (Component) {
                                     "a",
                                     { href: "#" },
                                     React.createElement("i", { className: "icon-time" }),
-                                    " 11:00 - 19:00"
+                                    " ",
+                                    DateUtils.formattedDate(this.props.entry.timestamp)
                                 )
                             ),
                             React.createElement(
@@ -87,7 +90,7 @@ var EntryPreview = (function (Component) {
                                 React.createElement(
                                     "a",
                                     { href: "#" },
-                                    React.createElement("i", { className: "icon-map-marker2" }),
+                                    React.createElement("i", { className: "icon-user" }),
                                     " ",
                                     username
                                 )

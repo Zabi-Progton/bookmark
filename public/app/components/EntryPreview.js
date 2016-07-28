@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import DateUtils from '../utils/DateUtils'
 
 class EntryPreview extends Component {
 
@@ -26,8 +27,8 @@ class EntryPreview extends Component {
                     </div>
 					<p>{this.props.entry.description}</p>
                     <ul className="entry-meta clearfix">
-                        <li><a href="#"><i className="icon-time"></i> 11:00 - 19:00</a></li>
-                        <li><a href="#"><i className="icon-map-marker2"></i> {username}</a></li>
+                        <li><a href="#"><i className="icon-time"></i> {DateUtils.formattedDate(this.props.entry.timestamp)}</a></li>
+                        <li><a href="#"><i className="icon-user"></i> {username}</a></li>
                     </ul>
                     <div className="entry-content">
                         <a target="_blank" href={this.props.entry.url} className="btn btn-danger">Read More</a>
