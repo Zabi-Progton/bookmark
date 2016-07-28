@@ -15,6 +15,7 @@ var React = _interopRequire(_react);
 var Component = _react.Component;
 var DateUtils = _interopRequire(require("../utils/DateUtils"));
 
+var Link = require("react-router").Link;
 var EntryPreview = (function (Component) {
     function EntryPreview() {
         _classCallCheck(this, EntryPreview);
@@ -30,10 +31,23 @@ var EntryPreview = (function (Component) {
         render: {
             value: function render() {
                 var username = null;
+                var profileLink = null;
                 if (this.props.entry.profile.username == null) {
                     username = "Anonymous";
+                    profileLink = React.createElement(
+                        "a",
+                        { href: "#" },
+                        React.createElement("i", { className: "icon-user" }),
+                        " 'Anonymous'"
+                    );
                 } else {
                     username = this.props.entry.profile.username;
+                    profileLink = React.createElement(
+                        Link,
+                        { to: "/page/" + username },
+                        " ",
+                        username
+                    );
                 }
 
                 var imageUrl = this.props.entry.image.length == 0 ? "/images/events/thumbs/1.jpg" : this.props.entry.image;
@@ -87,13 +101,7 @@ var EntryPreview = (function (Component) {
                             React.createElement(
                                 "li",
                                 null,
-                                React.createElement(
-                                    "a",
-                                    { href: "#" },
-                                    React.createElement("i", { className: "icon-user" }),
-                                    " ",
-                                    username
-                                )
+                                profileLink
                             )
                         ),
                         React.createElement(

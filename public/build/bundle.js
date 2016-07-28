@@ -30965,6 +30965,8 @@
 	
 	var _DateUtils2 = _interopRequireDefault(_DateUtils);
 	
+	var _reactRouter = __webpack_require__(174);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30986,10 +30988,23 @@
 	        key: 'render',
 	        value: function render() {
 	            var username = null;
+	            var profileLink = null;
 	            if (this.props.entry.profile.username == null) {
 	                username = 'Anonymous';
+	                profileLink = _react2.default.createElement(
+	                    'a',
+	                    { href: '#' },
+	                    _react2.default.createElement('i', { className: 'icon-user' }),
+	                    ' \'Anonymous\''
+	                );
 	            } else {
 	                username = this.props.entry.profile.username;
+	                profileLink = _react2.default.createElement(
+	                    _reactRouter.Link,
+	                    { to: '/page/' + username },
+	                    ' ',
+	                    username
+	                );
 	            }
 	
 	            var imageUrl = this.props.entry.image.length == 0 ? '/images/events/thumbs/1.jpg' : this.props.entry.image;
@@ -31043,13 +31058,7 @@
 	                        _react2.default.createElement(
 	                            'li',
 	                            null,
-	                            _react2.default.createElement(
-	                                'a',
-	                                { href: '#' },
-	                                _react2.default.createElement('i', { className: 'icon-user' }),
-	                                ' ',
-	                                username
-	                            )
+	                            profileLink
 	                        )
 	                    ),
 	                    _react2.default.createElement(

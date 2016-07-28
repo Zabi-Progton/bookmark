@@ -1,15 +1,19 @@
 import React, { Component } from 'react'
 import DateUtils from '../utils/DateUtils'
+import { Link } from 'react-router'
 
 class EntryPreview extends Component {
 
 	render(){
         var username = null
+        var profileLink = null
         if (this.props.entry.profile.username == null){
             username = 'Anonymous'
+            profileLink = <a href="#"><i className="icon-user"></i> 'Anonymous'</a>
         }
         else {
             username = this.props.entry.profile.username
+            profileLink = <Link to={'/page/'+username}> {username}</Link>
         }
 
 		var imageUrl = (this.props.entry.image.length == 0) ? '/images/events/thumbs/1.jpg' : this.props.entry.image
@@ -28,7 +32,7 @@ class EntryPreview extends Component {
 					<p>{this.props.entry.description}</p>
                     <ul className="entry-meta clearfix">
                         <li><a href="#"><i className="icon-time"></i> {DateUtils.formattedDate(this.props.entry.timestamp)}</a></li>
-                        <li><a href="#"><i className="icon-user"></i> {username}</a></li>
+                        <li>{profileLink}</li>
                     </ul>
                     <div className="entry-content">
                         <a target="_blank" href={this.props.entry.url} className="btn btn-danger">Read More</a>
