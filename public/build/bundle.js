@@ -30981,6 +30981,12 @@
 	    _createClass(EntryPreview, [{
 	        key: 'render',
 	        value: function render() {
+	            var username = null;
+	            if (this.props.entry.profile.username == null) {
+	                username = 'Anonymous';
+	            } else {
+	                username = this.props.entry.profile.username;
+	            }
 	
 	            var imageUrl = this.props.entry.image.length == 0 ? '/images/events/thumbs/1.jpg' : this.props.entry.image;
 	            return _react2.default.createElement(
@@ -31023,15 +31029,6 @@
 	                            'li',
 	                            null,
 	                            _react2.default.createElement(
-	                                'span',
-	                                { className: 'label label-warning' },
-	                                'Private'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'li',
-	                            null,
-	                            _react2.default.createElement(
 	                                'a',
 	                                { href: '#' },
 	                                _react2.default.createElement('i', { className: 'icon-time' }),
@@ -31045,7 +31042,8 @@
 	                                'a',
 	                                { href: '#' },
 	                                _react2.default.createElement('i', { className: 'icon-map-marker2' }),
-	                                ' Melbourne'
+	                                ' ',
+	                                username
 	                            )
 	                        )
 	                    ),

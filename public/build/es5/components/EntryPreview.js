@@ -27,6 +27,13 @@ var EntryPreview = (function (Component) {
     _prototypeProperties(EntryPreview, null, {
         render: {
             value: function render() {
+                var username = null;
+                if (this.props.entry.profile.username == null) {
+                    username = "Anonymous";
+                } else {
+                    username = this.props.entry.profile.username;
+                }
+
                 var imageUrl = this.props.entry.image.length == 0 ? "/images/events/thumbs/1.jpg" : this.props.entry.image;
                 return React.createElement(
                     "div",
@@ -68,15 +75,6 @@ var EntryPreview = (function (Component) {
                                 "li",
                                 null,
                                 React.createElement(
-                                    "span",
-                                    { className: "label label-warning" },
-                                    "Private"
-                                )
-                            ),
-                            React.createElement(
-                                "li",
-                                null,
-                                React.createElement(
                                     "a",
                                     { href: "#" },
                                     React.createElement("i", { className: "icon-time" }),
@@ -90,7 +88,8 @@ var EntryPreview = (function (Component) {
                                     "a",
                                     { href: "#" },
                                     React.createElement("i", { className: "icon-map-marker2" }),
-                                    " Melbourne"
+                                    " ",
+                                    username
                                 )
                             )
                         ),
