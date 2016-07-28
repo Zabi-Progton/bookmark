@@ -12,6 +12,7 @@ var store = require('../public/build/es5/stores/store')
 var ServerApp = require('../public/build/es5/ServerApp')
 var Main = require('../public/build/es5/components/Main')
 var Home = require('../public/build/es5/components/layout/Home')
+var Page = require('../public/build/es5/components/layout/Page')
 var Account = require('../public/build/es5/components/layout/Account')
 var Entries = require('../public/build/es5/components/containers/Entries')
 
@@ -139,7 +140,7 @@ router.get('/:page/:slug', function(req, res, next) {
 	}
 
 	var initialStore = null
-	entryController.find({phone:req.params.slug})
+	entryController.find({'profile.username':req.params.slug})
 	.then(function(results){
 		var entriesMap = {}
 		for (var i=0; i<results.length; i++){
@@ -162,11 +163,11 @@ router.get('/:page/:slug', function(req, res, next) {
 		})
 
 		var routes = {
-			path: '/:page/:phone',
+			path: '/page/:username',
 			component: ServerApp,
 			initial: initialStore,
 			indexRoute: {
-				component: Entries
+				component: Page
 			}
 		}
 
