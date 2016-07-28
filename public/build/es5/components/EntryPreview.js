@@ -45,6 +45,7 @@ var EntryPreview = (function (Component) {
                     profileLink = React.createElement(
                         Link,
                         { to: "/page/" + username },
+                        React.createElement("i", { className: "icon-user" }),
                         " ",
                         username
                     );

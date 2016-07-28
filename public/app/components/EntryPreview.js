@@ -13,7 +13,7 @@ class EntryPreview extends Component {
         }
         else {
             username = this.props.entry.profile.username
-            profileLink = <Link to={'/page/'+username}> {username}</Link>
+            profileLink = <Link to={'/page/'+username}><i className="icon-user"></i> {username}</Link>
         }
 
 		var imageUrl = (this.props.entry.image.length == 0) ? '/images/events/thumbs/1.jpg' : this.props.entry.image
