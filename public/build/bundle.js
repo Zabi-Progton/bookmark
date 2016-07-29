@@ -46181,8 +46181,9 @@
 	}(_react.Component);
 	
 	var stateToProps = function stateToProps(state) {
+		console.log('ENTRIES: ' + JSON.stringify(state.entriesReducer.entries));
 		return {
-			entries: state.entriesReducer.entriesArray,
+			entries: state.entriesReducer.entries,
 			currentUser: state.accountReducer.currentUser
 		};
 	};

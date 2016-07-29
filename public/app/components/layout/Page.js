@@ -28,8 +28,9 @@ class Page extends Component {
 }
 
 const stateToProps = function(state){
+	console.log('ENTRIES: '+JSON.stringify(state.entriesReducer.entries))
 	return {
-		entries: state.entriesReducer.entriesArray,
+		entries: state.entriesReducer.entries,
 		currentUser: state.accountReducer.currentUser
 	}
 }
