@@ -56,8 +56,24 @@ router.get('/', function(req, res, next) {
 		return entryController.find(null)
 	})
 	.then(function(results){
+		var entriesMap = {}
+		for (var i=0; i<results.length; i++){
+			var entry = results[i]
+			var username = entry.profile.username
+			if (username == null)
+				continue
+			
+			var array = entriesMap[username]
+			if (array == null)
+				array = []
+
+			array.push(entry)
+			entriesMap[username] = array
+		}
+
+
 		var entriesReducer = {
-			entries: {},
+			entries: entriesMap,
 			entriesArray: results
 		}
 
@@ -148,7 +164,7 @@ router.get('/:page/:slug', function(req, res, next) {
 			var username = entry.profile.username
 			if (username == null)
 				continue
-			
+
 			var array = entriesMap[username]
 			if (array == null)
 				array = []
