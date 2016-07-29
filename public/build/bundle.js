@@ -46145,6 +46145,10 @@
 	
 	var _EntryPreview2 = _interopRequireDefault(_EntryPreview);
 	
+	var _Header = __webpack_require__(278);
+	
+	var _Header2 = _interopRequireDefault(_Header);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -46185,8 +46189,33 @@
 				return _react2.default.createElement(
 					'div',
 					null,
-					'This is the Page Component!',
-					entriesList
+					_react2.default.createElement(_Header2.default, null),
+					_react2.default.createElement(
+						'section',
+						{ id: 'content' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'content-wrap' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'container clearfix' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'col_two_third nobottommargin' },
+									_react2.default.createElement(
+										'h3',
+										null,
+										'Welcome To Bookmark!'
+									),
+									_react2.default.createElement(
+										'div',
+										{ id: 'posts', className: 'events small-thumbs' },
+										entriesList
+									)
+								)
+							)
+						)
+					)
 				);
 			}
 		}]);

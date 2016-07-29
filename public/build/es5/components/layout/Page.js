@@ -22,6 +22,8 @@ var actions = _interopRequire(require("../../actions/actions"));
 var connect = require("react-redux").connect;
 var EntryPreview = _interopRequire(require("../../components/EntryPreview"));
 
+var Header = _interopRequire(require("../../components/Header"));
+
 var Page = (function (Component) {
 	function Page(props, context) {
 		_classCallCheck(this, Page);
@@ -55,8 +57,33 @@ var Page = (function (Component) {
 				return React.createElement(
 					"div",
 					null,
-					"This is the Page Component!",
-					entriesList
+					React.createElement(Header, null),
+					React.createElement(
+						"section",
+						{ id: "content" },
+						React.createElement(
+							"div",
+							{ className: "content-wrap" },
+							React.createElement(
+								"div",
+								{ className: "container clearfix" },
+								React.createElement(
+									"div",
+									{ className: "col_two_third nobottommargin" },
+									React.createElement(
+										"h3",
+										null,
+										"Welcome To Bookmark!"
+									),
+									React.createElement(
+										"div",
+										{ id: "posts", className: "events small-thumbs" },
+										entriesList
+									)
+								)
+							)
+						)
+					)
 				);
 			},
 			writable: true,

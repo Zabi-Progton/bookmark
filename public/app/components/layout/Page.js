@@ -3,6 +3,7 @@ import store from '../../stores/store'
 import actions from '../../actions/actions'
 import { connect } from 'react-redux'
 import EntryPreview from '../../components/EntryPreview'
+import Header from '../../components/Header'
 
 
 class Page extends Component {
@@ -35,8 +36,28 @@ class Page extends Component {
 
 		return (
 			<div>
-				This is the Page Component!
-				{ entriesList }
+				<Header />
+
+		        <section id="content">
+
+		            <div className="content-wrap">
+		                <div className="container clearfix">
+
+		                    <div className="col_two_third nobottommargin">
+		                        <h3>Welcome To Bookmark!</h3>
+		                        <div id="posts" className="events small-thumbs">
+									{ entriesList }
+		                        </div>
+		                    </div>
+
+
+
+		                </div>
+		            </div>
+		        </section>
+
+
+
 			</div>
 		)
 	}
