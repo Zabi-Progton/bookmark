@@ -145,12 +145,16 @@ router.get('/:page/:slug', function(req, res, next) {
 		var entriesMap = {}
 		for (var i=0; i<results.length; i++){
 			var entry = results[i]
-			var array = entriesMap[entry.phone]
+			var username = entry.profile.username
+			if (username == null)
+				continue
+			
+			var array = entriesMap[username]
 			if (array == null)
 				array = []
 
 			array.push(entry)
-			entriesMap[entry.phone] = array
+			entriesMap[username] = array
 		}
 
 		var entriesReducer = {

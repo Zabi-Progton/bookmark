@@ -29595,11 +29595,14 @@
 				var entriesMap = Object.assign({}, newState.entries);
 				for (var i = 0; i < entries.length; i++) {
 					var entry = entries[i];
-					var array = entriesMap[entry.phone];
+					var username = entry.profile.username;
+					if (username == null) continue;
+	
+					var array = entriesMap[username];
 					if (array == null) array = [];
 	
 					array.push(entry);
-					entriesMap[entry.phone] = array;
+					entriesMap[username] = array;
 				}
 	
 				newState['entries'] = entriesMap;
@@ -46128,6 +46131,16 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _store = __webpack_require__(243);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _actions = __webpack_require__(263);
+	
+	var _actions2 = _interopRequireDefault(_actions);
+	
+	var _reactRedux = __webpack_require__(264);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -46139,10 +46152,13 @@
 	var Page = function (_Component) {
 		_inherits(Page, _Component);
 	
-		function Page() {
+		function Page(props, context) {
 			_classCallCheck(this, Page);
 	
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(Page).apply(this, arguments));
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Page).call(this, props, context));
+	
+			_this.state = {};
+			return _this;
 		}
 	
 		_createClass(Page, [{
@@ -46164,7 +46180,14 @@
 		return Page;
 	}(_react.Component);
 	
-	exports.default = Page;
+	var stateToProps = function stateToProps(state) {
+		return {
+			entries: state.entriesReducer.entriesArray,
+			currentUser: state.accountReducer.currentUser
+		};
+	};
+	
+	exports.default = (0, _reactRedux.connect)(stateToProps)(Page);
 
 /***/ }
 /******/ ]);
