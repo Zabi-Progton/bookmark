@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import store from '../../stores/store'
 import actions from '../../actions/actions'
 import { connect } from 'react-redux'
+import EntryPreview from '../../components/EntryPreview'
 
 
 class Page extends Component {
@@ -19,9 +20,23 @@ class Page extends Component {
 	}
 
 	render(){
+
+		var entriesList = null
+		var entryArray = this.props.entries[this.props.params.username]
+		if (entryArray != null){
+			entriesList = entryArray.map(function(entry, i){
+				return (
+					<EntryPreview key={entry._id} entry={entry} />
+				)
+			})
+		}
+
+
+
 		return (
 			<div>
 				This is the Page Component!
+				{ entriesList }
 			</div>
 		)
 	}

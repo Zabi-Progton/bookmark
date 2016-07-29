@@ -20,6 +20,8 @@ var store = _interopRequire(require("../../stores/store"));
 var actions = _interopRequire(require("../../actions/actions"));
 
 var connect = require("react-redux").connect;
+var EntryPreview = _interopRequire(require("../../components/EntryPreview"));
+
 var Page = (function (Component) {
 	function Page(props, context) {
 		_classCallCheck(this, Page);
@@ -40,10 +42,21 @@ var Page = (function (Component) {
 		},
 		render: {
 			value: function render() {
+				var entriesList = null;
+				var entryArray = this.props.entries[this.props.params.username];
+				if (entryArray != null) {
+					entriesList = entryArray.map(function (entry, i) {
+						return React.createElement(EntryPreview, { key: entry._id, entry: entry });
+					});
+				}
+
+
+
 				return React.createElement(
 					"div",
 					null,
-					"This is the Page Component!"
+					"This is the Page Component!",
+					entriesList
 				);
 			},
 			writable: true,

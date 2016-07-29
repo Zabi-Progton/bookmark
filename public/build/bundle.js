@@ -46141,6 +46141,10 @@
 	
 	var _reactRedux = __webpack_require__(264);
 	
+	var _EntryPreview = __webpack_require__(280);
+	
+	var _EntryPreview2 = _interopRequireDefault(_EntryPreview);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -46169,10 +46173,20 @@
 		}, {
 			key: 'render',
 			value: function render() {
+	
+				var entriesList = null;
+				var entryArray = this.props.entries[this.props.params.username];
+				if (entryArray != null) {
+					entriesList = entryArray.map(function (entry, i) {
+						return _react2.default.createElement(_EntryPreview2.default, { key: entry._id, entry: entry });
+					});
+				}
+	
 				return _react2.default.createElement(
 					'div',
 					null,
-					'This is the Page Component!'
+					'This is the Page Component!',
+					entriesList
 				);
 			}
 		}]);
